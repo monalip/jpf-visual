@@ -9,13 +9,14 @@ import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
 import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
 import gov.nasa.jpf.jvm.bytecode.LockInstruction;
 import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
-//import gov.nasa.jpf.util.Left; // change the import statment
+//import gov.nasa.jpf.util.Left;
 import kth.se.Adapters.Left;
 import gov.nasa.jpf.util.Pair;
 //import kth.se.Adapters.Pair;
 import gov.nasa.jpf.vm.ChoiceGenerator;
 import gov.nasa.jpf.vm.ClassInfo;
-import gov.nasa.jpf.vm.Instruction;
+//import gov.nasa.jpf.vm.Instruction;
+import kth.se.Adapters.jpf.InstructionJpfImp;
 import gov.nasa.jpf.vm.MethodInfo;
 import gov.nasa.jpf.vm.Path;
 import gov.nasa.jpf.vm.Step;
@@ -169,7 +170,7 @@ public class TraceData {
 						txtSrc.setEndStep(si);
 					}
 
-					Instruction insn = s.getInstruction();
+					InstructionJpfImp insn = s.getInstruction();
 					MethodInfo mi = insn.getMethodInfo();
 					ThreadInfo ti = transition.getThreadInfo();
 
@@ -290,7 +291,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
+	private void loadWaitNotify(String line, InstructionJpfImp insn, int pi, int height) {
 		if (line != null && insn instanceof VirtualInvocation) {
 			String insnStr = insn.toString();
 			if (insnStr.contains("java.lang.Object.wait()") || insnStr.contains("java.lang.Object.notify()")
@@ -300,7 +301,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
+	private void loadLockUnlock(String line, InstructionJpfImp insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
 		if (line != null && insn instanceof LockInstruction) {
 			LockInstruction minsn = (LockInstruction) insn;
 			String fieldName = ti.getElementInfo(minsn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
@@ -334,7 +335,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadFields(String line, Instruction insn, TextLine txtSrc) {
+	private void loadFields(String line, InstructionJpfImp insn, TextLine txtSrc) {
 		if (line != null && txtSrc != null && txtSrc.isSrc() && insn instanceof FieldInstruction) {
 			String name = ((FieldInstruction) insn).getVariableId();
 			int dotPos = name.lastIndexOf(".");
@@ -353,7 +354,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
+	private void loadMethods(String line, InstructionJpfImp insn, TextLine txtSrc) {
 		if (line != null && txtSrc != null && txtSrc.isSrc() && insn instanceof JVMInvokeInstruction) {
 			String methodName = ((JVMInvokeInstruction) insn).getInvokedMethodName().replaceAll("\\(.*$", "");
 			String clsName = ((JVMInvokeInstruction) insn).getInvokedMethodClassName();
@@ -396,7 +397,7 @@ public class TraceData {
 	private void processTextLineForSynchronizedMethods(TextLine tl) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step s = tl.getTransition().getStep(si);
-			Instruction insn = s.getInstruction();
+			InstructionJpfImp insn = s.getInstruction();
 			if (insn instanceof VirtualInvocation) {
 				VirtualInvocation vinsn = (VirtualInvocation) insn;
 				String cName = vinsn.getInvokedMethodClassName();
@@ -442,7 +443,7 @@ public class TraceData {
 			Set<Pair<Integer, Integer>> targetSet) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step step = tl.getTransition().getStep(si);
-			Instruction insn = step.getInstruction();
+			InstructionJpfImp insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (clsName.equals(cName) && srcSet.contains(insn.getFileLocation())) {
 				targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
@@ -482,7 +483,7 @@ public class TraceData {
 			Set<Pair<Integer, Integer>> targetSet, String clsName, String methodName) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step step = tl.getTransition().getStep(si);
-			Instruction insn = step.getInstruction();
+			InstructionJpfImp insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (cName.equals(srcMap.get(insn.getFileLocation()))) {
 				targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
