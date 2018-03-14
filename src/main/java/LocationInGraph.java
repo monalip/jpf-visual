@@ -2,7 +2,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import gov.nasa.jpf.util.Pair;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
 
 public class LocationInGraph {
 	private Map<Pair<Integer, Integer>, Object> contentMap;

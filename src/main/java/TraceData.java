@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,27 +12,28 @@ import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
 import gov.nasa.jpf.jvm.bytecode.LockInstruction;
 import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
 //import gov.nasa.jpf.util.Left;
-import kth.se.Adapters.Left;
-import gov.nasa.jpf.util.Pair;
-//import kth.se.Adapters.Pair;
+import se.kth.tracedata.Left;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
 import gov.nasa.jpf.vm.ChoiceGenerator;
 import gov.nasa.jpf.vm.ClassInfo;
-//import gov.nasa.jpf.vm.Instruction;
-import kth.se.Adapters.jpf.InstructionJpfImp;
+import gov.nasa.jpf.vm.Instruction;
 import gov.nasa.jpf.vm.MethodInfo;
 import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
 import gov.nasa.jpf.vm.Step;
 import gov.nasa.jpf.vm.ThreadInfo;
-import kth.se.Adapters.ThreadInfoAdapt;
 import gov.nasa.jpf.vm.Transition;
 import gov.nasa.jpf.vm.bytecode.FieldInstruction;
 import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+//import kth.se.jpf.Interface.PathInterface;
+
 
 public class TraceData {
-
 	private int numOfThreads = -1;
 	private List<String> threadNames = null;
 
+	//private PathInterfaceImpl path;
 	private Path path;
 
 	private List<Pair<Integer, Integer>> group = new ArrayList<>();
@@ -39,7 +42,7 @@ public class TraceData {
 	private Set<Pair<Integer, Integer>> waitSet = new HashSet<>();
 	private Map<String, Set<Pair<Integer, Integer>>> lockTable = new HashMap<>();
 	private Set<Pair<Integer, Integer>> threadStartSet = new HashSet<>();
-	private Map<Integer, TextLineList> lineTable = new HashMap<>();
+	private Map<Integer,TextLineList> lineTable = new HashMap<>();
 	private Set<String> lockMethodName = new HashSet<>();
 	private Map<String, Set<Pair<Integer, Integer>>> classFieldMap = new HashMap<>();
 	private Map<String, Set<Pair<Integer, Integer>>> classMethodMap = new HashMap<>();
@@ -170,7 +173,7 @@ public class TraceData {
 						txtSrc.setEndStep(si);
 					}
 
-					InstructionJpfImp insn = s.getInstruction();
+					Instruction insn = s.getInstruction();
 					MethodInfo mi = insn.getMethodInfo();
 					ThreadInfo ti = transition.getThreadInfo();
 
@@ -291,7 +294,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadWaitNotify(String line, InstructionJpfImp insn, int pi, int height) {
+	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
 		if (line != null && insn instanceof VirtualInvocation) {
 			String insnStr = insn.toString();
 			if (insnStr.contains("java.lang.Object.wait()") || insnStr.contains("java.lang.Object.notify()")
@@ -301,7 +304,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadLockUnlock(String line, InstructionJpfImp insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
+	private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
 		if (line != null && insn instanceof LockInstruction) {
 			LockInstruction minsn = (LockInstruction) insn;
 			String fieldName = ti.getElementInfo(minsn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
@@ -335,7 +338,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadFields(String line, InstructionJpfImp insn, TextLine txtSrc) {
+	private void loadFields(String line, Instruction insn, TextLine txtSrc) {
 		if (line != null && txtSrc != null && txtSrc.isSrc() && insn instanceof FieldInstruction) {
 			String name = ((FieldInstruction) insn).getVariableId();
 			int dotPos = name.lastIndexOf(".");
@@ -354,7 +357,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadMethods(String line, InstructionJpfImp insn, TextLine txtSrc) {
+	private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 		if (line != null && txtSrc != null && txtSrc.isSrc() && insn instanceof JVMInvokeInstruction) {
 			String methodName = ((JVMInvokeInstruction) insn).getInvokedMethodName().replaceAll("\\(.*$", "");
 			String clsName = ((JVMInvokeInstruction) insn).getInvokedMethodClassName();
@@ -397,7 +400,7 @@ public class TraceData {
 	private void processTextLineForSynchronizedMethods(TextLine tl) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step s = tl.getTransition().getStep(si);
-			InstructionJpfImp insn = s.getInstruction();
+			Instruction insn = s.getInstruction();
 			if (insn instanceof VirtualInvocation) {
 				VirtualInvocation vinsn = (VirtualInvocation) insn;
 				String cName = vinsn.getInvokedMethodClassName();
@@ -443,7 +446,7 @@ public class TraceData {
 			Set<Pair<Integer, Integer>> targetSet) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step step = tl.getTransition().getStep(si);
-			InstructionJpfImp insn = step.getInstruction();
+			Instruction insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (clsName.equals(cName) && srcSet.contains(insn.getFileLocation())) {
 				targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
@@ -483,7 +486,7 @@ public class TraceData {
 			Set<Pair<Integer, Integer>> targetSet, String clsName, String methodName) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step step = tl.getTransition().getStep(si);
-			InstructionJpfImp insn = step.getInstruction();
+			Instruction insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (cName.equals(srcMap.get(insn.getFileLocation()))) {
 				targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
@@ -553,4 +556,7 @@ public class TraceData {
 		return new HashMap<>(threadStateMap);
 	}
 
+
+
 }
+

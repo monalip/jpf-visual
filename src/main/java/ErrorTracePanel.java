@@ -38,8 +38,11 @@ import gov.nasa.jpf.shell.ShellPanel;
 import gov.nasa.jpf.shell.commands.VerifyCommand;
 import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
 import gov.nasa.jpf.shell.util.ProgressTrackerUI;
-import gov.nasa.jpf.util.Pair;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
 import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
+//import kth.se.jpf.Interface.PathInterface;
 
 /**
  * Basic output panel that divides new trace printer's results into browseable

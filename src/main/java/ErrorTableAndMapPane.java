@@ -27,8 +27,11 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-import gov.nasa.jpf.util.Pair;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
 import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
+//import kth.se.jpf.Interface.PathInterface;
 
 public class ErrorTableAndMapPane extends JPanel implements ComponentListener {
 	private static final long serialVersionUID = 1L;
@@ -102,7 +105,7 @@ public class ErrorTableAndMapPane extends JPanel implements ComponentListener {
 	public void draw(TraceData td) {
 		this.location = new LocationInGraph();
 
-		path = td.getPath();
+		path =td.getPath();
 		numOfThreads = td.getNumberOfThreads();
 		group = td.getGroup();
 		threadNames = td.getThreadNames();

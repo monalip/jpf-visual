@@ -15,8 +15,11 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxLayoutManager;
 
-import gov.nasa.jpf.util.Pair;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
 import gov.nasa.jpf.vm.Path;
+//import kth.se.jpf.Interface.PathInterface;
+//import se.kth.tracedata.Path;
 
 public class ThreadStateView {
 
@@ -72,6 +75,8 @@ public class ThreadStateView {
 		drawTable();
 
 	}
+
+	
 
 	public void setCellWidth(double newWidth) {
 		this.cellWidth = newWidth;

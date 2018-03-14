@@ -1,4 +1,4 @@
-package kth.se.Adapters;
+package se.kth.tracedata;
 
 import java.util.Arrays;
 

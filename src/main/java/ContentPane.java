@@ -21,8 +21,11 @@ import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxLayoutManager;
 
-import gov.nasa.jpf.util.Pair;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
 import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
+import kth.se.jpf.Interface.PathInterface;
 
 /**
  * Class {@code ContentPane} is the central pane of the error trace panel. Also
@@ -127,6 +130,11 @@ public class ContentPane {
 		// draw the table
 		drawTable();
 
+	}
+
+	public ContentPane(double cellWidth2, int numOfThreads2, PathInterface path2, List<Pair<Integer, Integer>> group2,
+			Map<Integer, TextLineList> lineTable2, LocationInGraph location2) {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**

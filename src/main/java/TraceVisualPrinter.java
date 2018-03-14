@@ -37,6 +37,7 @@ import gov.nasa.jpf.vm.ClassLoaderInfo;
 import gov.nasa.jpf.vm.Instruction;
 import gov.nasa.jpf.vm.MethodInfo;
 import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
 import gov.nasa.jpf.vm.Step;
 import gov.nasa.jpf.vm.ThreadInfo;
 import gov.nasa.jpf.vm.Transition;
@@ -247,7 +248,10 @@ public class TraceVisualPrinter extends Publisher {
 	// this is the main method we use to experiment
 	@Override
 	protected void publishTrace() {
-		this.path = reporter.getPath();
+		
+	this.path = reporter.getPath();
+		//this.path = path.clone();
+	
 		int i = 0;
 
 		if (path.size() == 0) {
@@ -340,7 +344,7 @@ public class TraceVisualPrinter extends Publisher {
 
 	@Override
 	protected void publishOutput() {
-		Path path = reporter.getPath();
+		Path path = (Path) reporter.getPath();
 
 		if (path.size() == 0) {
 			return; // nothing to publish
