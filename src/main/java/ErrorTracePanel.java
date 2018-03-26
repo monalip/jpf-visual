@@ -31,18 +31,24 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import gov.nasa.jpf.Config;
-import gov.nasa.jpf.report.Publisher;
-import gov.nasa.jpf.shell.ShellManager;
-import gov.nasa.jpf.shell.ShellPanel;
-import gov.nasa.jpf.shell.commands.VerifyCommand;
-import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
-import gov.nasa.jpf.shell.util.ProgressTrackerUI;
+//import gov.nasa.jpf.Config;
+import se.kth.tracedata.Config;
+//import gov.nasa.jpf.report.Publisher;
+import se.kth.tracedata.Publisher;
+//import gov.nasa.jpf.shell.ShellManager;
+import se.kth.shell.ShellManager;
+//import gov.nasa.jpf.shell.ShellPanel;
+import se.kth.shell.ShellPanel;
+//import gov.nasa.jpf.shell.commands.VerifyCommand;
+import se.kth.shell.VerifyCommand;
+//import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
+import se.kth.shell.VerifyCommandListener;
+//import gov.nasa.jpf.shell.util.ProgressTrackerUI;
+import se.kth.shell.ProgressTrackerUI;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-import gov.nasa.jpf.vm.Path;
-//import se.kth.tracedata.Path;
-//import kth.se.jpf.Interface.PathInterface;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.jpf.Path;
 
 /**
  * Basic output panel that divides new trace printer's results into browseable
@@ -537,8 +543,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if (e.getSource() instanceof JComboBox<?>) {
+						if (e.getSource() instanceof JComboBox<?>) {
 				JComboBox<?> cb = (JComboBox<?>) e.getSource();
 				String newSelection = (String) cb.getSelectedItem();
 				if (newSelection.contains("Field")) {

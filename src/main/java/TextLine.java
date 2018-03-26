@@ -2,9 +2,12 @@
 import java.util.HashSet;
 import java.util.Set;
 
-import gov.nasa.jpf.util.Left;
-import gov.nasa.jpf.vm.Step;
-import gov.nasa.jpf.vm.Transition;
+//import gov.nasa.jpf.util.Left;
+import se.kth.tracedata.Left;
+//import gov.nasa.jpf.vm.Step;
+import se.kth.tracedata.Step;
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.Transition;
 
 public class TextLine {
 	private String text;

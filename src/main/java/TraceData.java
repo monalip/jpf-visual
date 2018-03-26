@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,33 +5,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
-import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
-import gov.nasa.jpf.jvm.bytecode.LockInstruction;
-import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
+//import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
+import se.kth.tracedata.JVMInvokeInstruction;
+//import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
+import se.kth.tracedata.JVMReturnInstruction;
+//import gov.nasa.jpf.jvm.bytecode.LockInstruction;
+import se.kth.tracedata.LockInstruction;
+//import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
+import se.kth.tracedata.VirtualInvocation;
 //import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-import gov.nasa.jpf.vm.ChoiceGenerator;
-import gov.nasa.jpf.vm.ClassInfo;
-import gov.nasa.jpf.vm.Instruction;
-import gov.nasa.jpf.vm.MethodInfo;
-import gov.nasa.jpf.vm.Path;
-//import se.kth.tracedata.Path;
-import gov.nasa.jpf.vm.Step;
-import gov.nasa.jpf.vm.ThreadInfo;
-import gov.nasa.jpf.vm.Transition;
-import gov.nasa.jpf.vm.bytecode.FieldInstruction;
-import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
-//import kth.se.jpf.Interface.PathInterface;
-
+//import gov.nasa.jpf.vm.ChoiceGenerator;
+import se.kth.tracedata.ChoiceGenerator;
+//import gov.nasa.jpf.vm.ClassInfo;
+import se.kth.tracedata.ClassInfo;
+//import gov.nasa.jpf.vm.Instruction;
+import se.kth.tracedata.jpf.Instruction;
+//import gov.nasa.jpf.vm.MethodInfo;
+import se.kth.tracedata.MethodInfo;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.jpf.Path;
+///import gov.nasa.jpf.vm.Step;
+import se.kth.tracedata.Step;
+//import gov.nasa.jpf.vm.ThreadInfo;
+import se.kth.tracedata.ThreadInfo;
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.Transition;
+//import gov.nasa.jpf.vm.bytecode.FieldInstruction;
+import se.kth.tracedata.FieldInstruction;
+//import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+import se.kth.tracedata.ThreadChoiceFromSet;
 
 public class TraceData {
+
 	private int numOfThreads = -1;
 	private List<String> threadNames = null;
 
-	//private PathInterfaceImpl path;
 	private Path path;
 
 	private List<Pair<Integer, Integer>> group = new ArrayList<>();
@@ -42,7 +51,7 @@ public class TraceData {
 	private Set<Pair<Integer, Integer>> waitSet = new HashSet<>();
 	private Map<String, Set<Pair<Integer, Integer>>> lockTable = new HashMap<>();
 	private Set<Pair<Integer, Integer>> threadStartSet = new HashSet<>();
-	private Map<Integer,TextLineList> lineTable = new HashMap<>();
+	private Map<Integer, TextLineList> lineTable = new HashMap<>();
 	private Set<String> lockMethodName = new HashSet<>();
 	private Map<String, Set<Pair<Integer, Integer>>> classFieldMap = new HashMap<>();
 	private Map<String, Set<Pair<Integer, Integer>>> classMethodMap = new HashMap<>();
@@ -556,7 +565,4 @@ public class TraceData {
 		return new HashMap<>(threadStateMap);
 	}
 
-
-
 }
-
