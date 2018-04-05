@@ -7,9 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 //import gov.nasa.jpf.Config;
-import se.kth.tracedata.Config;
 //import gov.nasa.jpf.report.Reporter;
-import se.kth.tracedata.Reporter;
 //import gov.nasa.jpf.report.PublisherExtension;
 import se.kth.tracedata.PublisherExtension;
 

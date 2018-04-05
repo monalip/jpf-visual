@@ -24,24 +24,42 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import gov.nasa.jpf.Config;
-import gov.nasa.jpf.Error;
-import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
-import gov.nasa.jpf.report.Publisher;
-import gov.nasa.jpf.report.Reporter;
-import gov.nasa.jpf.report.Statistics;
-import gov.nasa.jpf.util.Left;
-import gov.nasa.jpf.util.Pair;
-import gov.nasa.jpf.vm.ClassInfo;
-import gov.nasa.jpf.vm.ClassLoaderInfo;
-import gov.nasa.jpf.vm.Instruction;
-import gov.nasa.jpf.vm.MethodInfo;
-import gov.nasa.jpf.vm.Path;
-import gov.nasa.jpf.vm.Step;
-import gov.nasa.jpf.vm.ThreadInfo;
-import gov.nasa.jpf.vm.Transition;
-import gov.nasa.jpf.vm.VM;
-import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+//import gov.nasa.jpf.Config;
+import se.kth.tracedata.Config;
+//import gov.nasa.jpf.Error;
+import se.kth.tracedata.Error;
+//import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
+import se.kth.tracedata.JVMInvokeInstruction;
+//import gov.nasa.jpf.report.Publisher;
+import se.kth.tracedata.Publisher;
+//import gov.nasa.jpf.report.Reporter;
+import se.kth.tracedata.Reporter;
+//import gov.nasa.jpf.report.Statistics;
+import se.kth.tracedata.Statistics;
+//import gov.nasa.jpf.util.Left;
+import se.kth.tracedata.Left;
+//import gov.nasa.jpf.util.Pair;
+import se.kth.tracedata.Pair;
+//import gov.nasa.jpf.vm.ClassInfo;
+import se.kth.tracedata.ClassInfo;
+import se.kth.tracedata.ClassLoaderInfo;
+//import gov.nasa.jpf.vm.ClassLoaderInfo;
+//import gov.nasa.jpf.vm.Instruction;
+import se.kth.tracedata.jpf.Instruction;
+//import gov.nasa.jpf.vm.MethodInfo;
+import se.kth.tracedata.MethodInfo;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.jpf.Path;
+//import gov.nasa.jpf.vm.Step;
+import se.kth.tracedata.Step;
+//import gov.nasa.jpf.vm.ThreadInfo;
+import se.kth.tracedata.ThreadInfo;
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.Transition;
+//import gov.nasa.jpf.vm.VM;
+import se.kth.tracedata.VM;
+//import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+import se.kth.tracedata.ThreadChoiceFromSet;
 
 public class TraceVisualPrinter extends Publisher {
 
@@ -247,7 +265,10 @@ public class TraceVisualPrinter extends Publisher {
 	// this is the main method we use to experiment
 	@Override
 	protected void publishTrace() {
-		this.path = reporter.getPath();
+		
+	this.path = reporter.getPath();
+		//this.path = path.clone();
+	
 		int i = 0;
 
 		if (path.size() == 0) {
@@ -340,7 +361,7 @@ public class TraceVisualPrinter extends Publisher {
 
 	@Override
 	protected void publishOutput() {
-		Path path = reporter.getPath();
+		Path path = (Path) reporter.getPath();
 
 		if (path.size() == 0) {
 			return; // nothing to publish

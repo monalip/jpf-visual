@@ -26,6 +26,7 @@ import se.kth.tracedata.Pair;
 //import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.jpf.Path;
 
+
 /**
  * Class {@code ContentPane} is the central pane of the error trace panel. Also
  * it is the left pane of ErrorTableAndMapPane.
@@ -130,6 +131,8 @@ public class ContentPane {
 		drawTable();
 
 	}
+
+	
 
 	/**
 	 * @return the mxGraph of the table
