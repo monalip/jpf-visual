@@ -7,128 +7,72 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import se.kth.tracedata.PathInterface;
 //import gov.nasa.jpf.vm.Transition;
-import se.kth.tracedata.Transition;
+import se.kth.tracedata.jpf.Transition;
 
 
-public class Path implements PathInterface  {
-	String  application;  
-	  private LinkedList<Transition> stack;
-	 Path path;
+public class Path implements se.kth.tracedata.Path  {
+	gov.nasa.jpf.vm.Path jpfPath;
 	  
-	  public Path(Path path2)
+	public Path(gov.nasa.jpf.vm.Path jpfPath)
 	  {
-		  this.path = path2;
+		  this.jpfPath = jpfPath;
 	  }
 	  
 	  private Path() {} // for cloning
 	  
 	  public Path (String app) {
-	    application = app;
-	    stack = new LinkedList<Transition>();
+	    jpfPath = new Path(app);
 	  }
 	  
 	  @Override
 	  public Path clone() {
-	    Path clone = new Path();
-	   // clone.application = application;
-	    
-	    // we need to deep copy the stack to preserve CG and ThreadInfo state
-	    LinkedList<Transition> clonedStack = new LinkedList<Transition>();
-	    for (Transition t : stack){
-	      clonedStack.add( (Transition)t.clone());
-	    }
-	   // clone.stack = clonedStack;
-	    
-	    return clone;
+	    return new Path(jpfPath.clone());
+	    // new adapter instance with cloned JPF path
 	  }
 	  
 	  public String getApplication () {
-	    return application;
+	    return jpfPath.application;
 	  }
 
-	  public Transition getLast () {
-	    if (stack.isEmpty()) {
-	      return null;
-	    } else {
-	      return stack.getLast();
-	    }
+	  public Transition getLast() {
+	    return new Transition(jpfPath.getLast());
+	    // create new transition adapter with JPF data inside
 	  }
 
 	  public void add (Transition t) {
-	    stack.add(t);
+	    jpfPath.add(t.jpfTransition);
 	  }
-
-	  
-	 
 
 	  public boolean isEmpty() {
-	    return (stack.size() == 0);
+	    return jpfPath.isEmpty();
 	  }
 	  
-	  public int size () {
-	    return stack.size();
+	  public int size() {
+	    return jpfPath.size();
 	  }
 
 	  public boolean hasOutput () {
-	    for (Transition t : stack) {
-	      if (t.getOutput() != null) {
-	        return true;
-	      }
-	    }
-	    
-	    return false;
+	    return jpfPath.hasOutput();
 	  }
 	  
 	  public void printOutputOn (PrintWriter pw) {
-	    for (Transition t : stack) {
-	      String output = t.getOutput();
-	      if (t != null) {
-	        pw.print(output);
-	      }
-	    }
+	    jpfPath.printOutputOn(pw);
 	  }
 	  
-	 
-	  public void printOn (PrintWriter pw) {
-	/**** <2do> this is going away
-	    int    length = size;
-	    Transition entry;
-
-	    for (int index = 0; index < length; index++) {
-	      pw.print("Transition #");
-	      pw.print(index);
-	      
-	      if ((entry = get(index)) != null) {
-	        pw.print(' ');
-
-	        entry.printOn(pw);
-	      }
-	    }
-	***/
-	  }
-
 	  public void removeLast () {
-	    stack.removeLast();
+	    jpfPath.removeLast();
 	  }
-	  
 	  
 	  public Transition get (int pos) {
-		    return stack.get(pos);
-		  }
+	    return new Transition(jpfPath.get(pos));
+	  }
 
 	@Override
 	public Iterator<Transition> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
-
-
-	
 
 	@Override
 	public Iterator<Transition> descendingIterator() {
@@ -141,16 +85,4 @@ public class Path implements PathInterface  {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	}
+}
