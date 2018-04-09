@@ -22,11 +22,8 @@ import java.io.StringWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//import gov.nasa.jpf.Config;
-import se.kth.tracedata.Config;
-//import se.kth.tracedata.Config;
-//import gov.nasa.jpf.report.Reporter;
-import se.kth.tracedata.Reporter;
+import gov.nasa.jpf.Config;
+import gov.nasa.jpf.report.Reporter;
 
 /**
  * Redirects {@link gov.nasa.jpf.traceServer.printer.ConsoleTracePrinter

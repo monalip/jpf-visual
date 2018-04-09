@@ -1,9 +1,8 @@
 package se.kth.tracedata;
 
 //import gov.nasa.jpf.JPFListener;
-//import gov.nasa.jpf.search.Search;
 import se.kth.tracedata.JPFListener;
-import se.kth.tracedata.Search;
+import gov.nasa.jpf.search.Search;
 
 /**
  * interface to register for notification by the Search object.

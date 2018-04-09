@@ -32,23 +32,28 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 //import gov.nasa.jpf.Config;
-import se.kth.tracedata.Config;
+import se.kth.tracedata.jpf.Config;
 //import gov.nasa.jpf.report.Publisher;
 import se.kth.tracedata.Publisher;
+//import se.kth.tracedata.jpf.Publisher;
 //import gov.nasa.jpf.shell.ShellManager;
-import se.kth.shell.ShellManager;
-//import gov.nasa.jpf.shell.ShellPanel;
-import se.kth.shell.ShellPanel;
+import se.kth.tracedata.shell.ShellManager;
+//import gov.nasa.jpf.shell.ShellCommand;
+import se.kth.tracedata.shell.ShellCommand;
+//import gov.nasa.jpf.shell.ShellCommandListener;
+import se.kth.tracedata.shell.ShellCommandListener;
+//import se.kth.shell.ShellManager;
+import gov.nasa.jpf.shell.ShellPanel;
 //import gov.nasa.jpf.shell.commands.VerifyCommand;
-import se.kth.shell.VerifyCommand;
-//import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
-import se.kth.shell.VerifyCommandListener;
+import se.kth.tracedata.shell.VerifyCommand;
+///import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
+import se.kth.tracedata.shell.VerifyCommandListener;
 //import gov.nasa.jpf.shell.util.ProgressTrackerUI;
-import se.kth.shell.ProgressTrackerUI;
+import se.kth.tracedata.shell.ProgressTrackerUI;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
 //import gov.nasa.jpf.vm.Path;
-import se.kth.tracedata.jpf.Path;
+import se.kth.tracedata.Path;
 
 /**
  * Basic output panel that divides new trace printer's results into browseable
@@ -57,7 +62,8 @@ import se.kth.tracedata.jpf.Path;
  * when the VerifyCommand is executed.
  */
 
-public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener {
+//public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener {
+public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener{
 	private static final long serialVersionUID = 1L;
 	private static final String PROGRESS = "PROGRESS";
 	private static final String TOPICS = "TOPICS";
@@ -93,6 +99,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 	public ErrorTracePanel() {
 		super("Error Trace", null, "View JPF's Output");
+		//ShellManager.getManager().addCommandListener(VerifyCommand.class, this);
 		ShellManager.getManager().addCommandListener(VerifyCommand.class, this);
 
 		JPanel tablePanel = new JPanel();
@@ -114,13 +121,14 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(200);
 		splitPane.setBorder(BorderFactory.createEmptyBorder());
-
 		tablePanel.setBackground(Color.white);
+
 		tablePanel.add(splitPane);
 		setLayout(layout);
 
 		add(tablePanel, TOPICS);
-		add(tracker, PROGRESS);
+		add(tracker,PROGRESS);
+		
 		layout.show(this, PROGRESS);
 
 	}
@@ -198,7 +206,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 				path = ((ErrorTracePrinter) publisher).getPath();
 			}
 		}
-		if (found) {
+		if (found && path != null) {
 			// reset
 			td = new TraceData(path);
 			errorTrace.draw(td);
@@ -215,9 +223,20 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 			layout.show(this, TOPICS);
 			getShell().requestFocus(this);
 
-		} else {
+		}
+		else if (found && path == null) {
+						ShellManager.getManager().getConfig().put("report.publisher", publishers);
+						publishers = null;
+						// layout.show(this, TOPICS);
+						JOptionPane.showMessageDialog(this, "No error trace is generated!", "No Error Found",
+						JOptionPane.NO_OPTION | JOptionPane.ERROR_MESSAGE);
+		}
+
+		else {
 			ShellManager.getManager().getConfig().put("report.publisher", publishers);
 			publishers = null;
+			JOptionPane.showMessageDialog(this, "ErrorTracePrinter is not set as a publisher!", "Error config .jpf",
+									JOptionPane.NO_OPTION | JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -543,7 +562,8 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-						if (e.getSource() instanceof JComboBox<?>) {
+			// TODO Auto-generated method stub
+			if (e.getSource() instanceof JComboBox<?>) {
 				JComboBox<?> cb = (JComboBox<?>) e.getSource();
 				String newSelection = (String) cb.getSelectedItem();
 				if (newSelection.contains("Field")) {
@@ -589,4 +609,6 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 		}
 	}
+
+	
 }

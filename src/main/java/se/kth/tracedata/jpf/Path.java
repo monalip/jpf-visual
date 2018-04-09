@@ -1,59 +1,44 @@
 package se.kth.tracedata.jpf;
 
-import java.awt.Graphics;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import se.kth.tracedata.PathInterface;
-//import gov.nasa.jpf.vm.Transition;
-import se.kth.tracedata.Transition;
+import gov.nasa.jpf.vm.Transition;
+//import se.kth.tracedata.jpf.Transition;
 
 
-public class Path implements PathInterface  {
-	String  application;  
+public class Path implements se.kth.tracedata.Path{
+	
+	 gov.nasa.jpf.vm.Path jpfpath;
+	 String             application;  
 	  private LinkedList<Transition> stack;
-	 Path path;
-	  
-	  public Path(Path path2)
-	  {
-		  this.path = path2;
-	  }
 	  
 	  private Path() {} // for cloning
 	  
+	  public Path(Path path2) {
+		  
+	  } // for cloning
+	  
+	 
+	  public Path (gov.nasa.jpf.vm.Path jpfpath) {
+		  	
+		    this.jpfpath = jpfpath; 
+		  }
 	  public Path (String app) {
-	    application = app;
-	    stack = new LinkedList<Transition>();
-	  }
+		    jpfpath = new gov.nasa.jpf.vm.Path(app);
+		  }
 	  
-	  @Override
-	  public Path clone() {
-	    Path clone = new Path();
-	   // clone.application = application;
-	    
-	    // we need to deep copy the stack to preserve CG and ThreadInfo state
-	    LinkedList<Transition> clonedStack = new LinkedList<Transition>();
-	    for (Transition t : stack){
-	      clonedStack.add( (Transition)t.clone());
-	    }
-	   // clone.stack = clonedStack;
-	    
-	    return clone;
+	public Path clone() {
+		  	    
+		    return new Path(jpfpath.clone());
 	  }
-	  
 	  public String getApplication () {
-	    return application;
+	    return(jpfpath.getApplication());
 	  }
 
 	  public Transition getLast () {
-	    if (stack.isEmpty()) {
-	      return null;
-	    } else {
-	      return stack.getLast();
-	    }
+		  return(jpfpath.getLast());
 	  }
 
 	  public void add (Transition t) {
@@ -64,30 +49,19 @@ public class Path implements PathInterface  {
 	 
 
 	  public boolean isEmpty() {
-	    return (stack.size() == 0);
+	   return jpfpath.isEmpty();
 	  }
 	  
 	  public int size () {
-	    return stack.size();
+	    return jpfpath.size();
 	  }
 
 	  public boolean hasOutput () {
-	    for (Transition t : stack) {
-	      if (t.getOutput() != null) {
-	        return true;
-	      }
-	    }
-	    
-	    return false;
+	    return jpfpath.hasOutput();
 	  }
 	  
 	  public void printOutputOn (PrintWriter pw) {
-	    for (Transition t : stack) {
-	      String output = t.getOutput();
-	      if (t != null) {
-	        pw.print(output);
-	      }
-	    }
+	    jpfpath.printOn(pw);
 	  }
 	  
 	 
@@ -110,7 +84,7 @@ public class Path implements PathInterface  {
 	  }
 
 	  public void removeLast () {
-	    stack.removeLast();
+		  jpfpath.removeLast();
 	  }
 	  
 	  
@@ -118,39 +92,18 @@ public class Path implements PathInterface  {
 		    return stack.get(pos);
 		  }
 
-	@Override
 	public Iterator<Transition> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return stack.iterator();
 	}
 
 	
 
-
-
-	
-
-	@Override
 	public Iterator<Transition> descendingIterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-		// TODO Auto-generated method stub
-		return 0;
+		return stack.descendingIterator();
 	}
 
 	
 
-	
-
-	
-
-	
-
-	
 
 	
 	}

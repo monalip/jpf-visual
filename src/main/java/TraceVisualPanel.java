@@ -44,29 +44,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ListSelectionModel;
 
-//import gov.nasa.jpf.Config;
-import se.kth.tracedata.Config;
-//import gov.nasa.jpf.report.Publisher;
-import se.kth.tracedata.Publisher;
-
-//import gov.nasa.jpf.shell.ShellManager;
-import se.kth.shell.ShellManager;
-//import gov.nasa.jpf.shell.ShellPanel;
-import se.kth.shell.ShellPanel;
-//import gov.nasa.jpf.shell.commands.VerifyCommand;
-import se.kth.shell.VerifyCommand;
-//import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
-import se.kth.shell.VerifyCommandListener;
-//import gov.nasa.jpf.shell.util.HyperlinkEditorPane;
-import se.kth.shell.HyperlinkEditorPane;
-//import gov.nasa.jpf.shell.util.ProgressTrackerUI;
-import se.kth.shell.ProgressTrackerUI;
-//import gov.nasa.jpf.shell.util.hyperlinks.BasicHyperLinkDecorator;
-import se.kth.shell.BasicHyperLinkDecorator;
-//import gov.nasa.jpf.shell.util.hyperlinks.JavaSourceFileHyperlinkPattern;
-import se.kth.shell.JavaSourceFileHyperlinkPattern;
-//import gov.nasa.jpf.shell.util.hyperlinks.StacktraceHyperlinkPattern;
-import se.kth.shell.StacktraceHyperlinkPattern;;
+import gov.nasa.jpf.Config;
+import gov.nasa.jpf.report.Publisher;
+import gov.nasa.jpf.shell.ShellManager;
+import gov.nasa.jpf.shell.ShellPanel;
+import gov.nasa.jpf.shell.commands.VerifyCommand;
+import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
+import gov.nasa.jpf.shell.util.HyperlinkEditorPane;
+import gov.nasa.jpf.shell.util.ProgressTrackerUI;
+import gov.nasa.jpf.shell.util.hyperlinks.BasicHyperLinkDecorator;
+import gov.nasa.jpf.shell.util.hyperlinks.JavaSourceFileHyperlinkPattern;
+import gov.nasa.jpf.shell.util.hyperlinks.StacktraceHyperlinkPattern;
 
 /**
  * Basic output panel that divides new trace printer's results into browseable
@@ -89,7 +77,6 @@ public class TraceVisualPanel extends ShellPanel implements VerifyCommandListene
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private JList topicList = new JList(topicListModel);
 
-	//private ProgressTrackerUI tracker = new ProgressTrackerUI();
 	private ProgressTrackerUI tracker = new ProgressTrackerUI();
 	private boolean isSaveable = false;
 
@@ -157,12 +144,10 @@ public class TraceVisualPanel extends ShellPanel implements VerifyCommandListene
 		setLayout(layout);
 
 		add(topicsPanel, TOPICS);
-		//add(tracker, PROGRESS);
-		add(tracker,PROGRESS);
+		add(tracker, PROGRESS);
 		layout.show(this, PROGRESS);
 	}
 
-	
 	private void updateTextArea() {
 		String topic = (String) topicList.getSelectedValue();
 		if (topic != null) {
@@ -298,8 +283,7 @@ public class TraceVisualPanel extends ShellPanel implements VerifyCommandListene
 		}
 
 		boolean found = false;
-		
-		for(Publisher publisher : command.getJPF().getReporter().getPublishers()) {
+		for (Publisher publisher : command.getJPF().getReporter().getPublishers()) {
 			if (publisher instanceof TopicPublisher) {
 				if (!found) {
 					reset();

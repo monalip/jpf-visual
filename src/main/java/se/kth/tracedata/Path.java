@@ -4,40 +4,40 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import gov.nasa.jpf.util.Printable;
 import gov.nasa.jpf.vm.Transition;
-//import kth.se.jpf.Interface.PathInterfaceImpl;
 
-public interface Path extends Cloneable,Iterable<Transition>,Printable{
+//import gov.nasa.jpf.vm.Transition;
+
+public interface Path extends Cloneable,Iterable<Transition>{
 	
+			
+			//clone check
+			public  Path clone();
+			
+			  
+			  public String getApplication () ;
+			 // public Transition getLast ();
 
-	
-	//clone check
-	public Path clone();
-	
-	  
-	  public String getApplication () ;
-	  public Transition getLast ();
+			 // public void add (Transition t) ;
 
-	  public void add (Transition t) ;
+			  //public Transition get (int pos) ;
 
-	  public Transition get (int pos) ;
+			  public boolean isEmpty() ;
+			  
+			  public int size () ;
 
-	  public boolean isEmpty() ;
-	  
-	  public int size () ;
+			  public boolean hasOutput ();
+			  
+			  public void printOutputOn (PrintWriter pw);
+			
+			  public void printOn (PrintWriter pw);
 
-	  public boolean hasOutput ();
-	  
-	  public void printOutputOn (PrintWriter pw);
-	
-	  //public void printOn (PrintWriter pw);
+			  public void removeLast () ;
+			 
+			 public Iterator<Transition> iterator () ;
+			  
+			  public Iterator<Transition> descendingIterator() ;
+			
+			  public Transition get (int pos);
 
-	  public void removeLast () ;
-	 
-	 // public Iterator<Transition> iterator () ;
-	  
-	  public Iterator<Transition> descendingIterator() ;
-	
-
-}
+	}
