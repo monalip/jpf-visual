@@ -18,17 +18,19 @@ public class Publisher implements se.kth.tracedata.Publisher {
 	public List<gov.nasa.jpf.report.Publisher> publishers = new ArrayList<gov.nasa.jpf.report.Publisher>();
 	public Publisher()
 	{
-		
+	
 	}
 	
 	public Publisher (gov.nasa.jpf.report.Publisher jpfpublisher) {
 	  	
 	    this.jpfpublisher = jpfpublisher; 
+	    
 	  }
-public Publisher (List<gov.nasa.jpf.report.Publisher> jpfpublisher) {
+	
+/*public Publisher (List<gov.nasa.jpf.report.Publisher> jpfpublisher) {
 	  	
 	    this.publishers = jpfpublisher; 
-	  }
+	  }*/
 		  
 	  /**
 	   * to be initialized in openChannel

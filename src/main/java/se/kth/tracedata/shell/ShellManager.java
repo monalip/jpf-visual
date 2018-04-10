@@ -65,14 +65,18 @@ public class ShellManager {
 		   * @param commandClass - the ShellCommand class to listen for
 		   * @param listener - The listener to be executed when the ShellCommand executes
 		   */
-		  public void addCommandListener(Class<? extends ShellCommand> commandClass,
+		 /* public void addCommandListener(Class<VerifyCommand> commandClass,
 		                                 ShellCommandListener listener ){
-			  Class<? extends gov.nasa.jpf.shell.ShellCommand> cmd = (Class<? extends gov.nasa.jpf.shell.ShellCommand>) commandClass;
+			 
+			  //Class<? extends gov.nasa.jpf.shell.ShellCommand> cmd = (Class<? extends gov.nasa.jpf.shell.ShellCommand>) commandClass;
+			  gov.nasa.jpf.shell.commands.VerifyCommand cmd = new VerifyCommand(commandClass);
+			  Class<gov.nasa.jpf.shell.commands.VerifyCommand> command =  ( Class<gov.nasa.jpf.shell.commands.VerifyCommand>)commandClass.getClass();
 			 
 			  gov.nasa.jpf.shell.ShellCommandListener list = (gov.nasa.jpf.shell.ShellCommandListener) listener; 
 			jpfshellmnger.addCommandListener(cmd, list);
 			
-		}
+			
+		}*/
 
 		
 		  

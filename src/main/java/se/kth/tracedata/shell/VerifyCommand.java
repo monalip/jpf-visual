@@ -9,11 +9,16 @@ public class VerifyCommand extends ShellCommand{
 	gov.nasa.jpf.shell.commands.VerifyCommand jpfverifycmd;
 	static gov.nasa.jpf.shell.ShellCommand jpfshellcmd;
 	
-	
+	VerifyCommand vercmd ;
 	public VerifyCommand(gov.nasa.jpf.shell.commands.VerifyCommand jpfverifycmd)
 	{
 		super(jpfshellcmd);
 		this.jpfverifycmd = jpfverifycmd;
+	}
+	public VerifyCommand(VerifyCommand vercmd)
+	{
+		super(jpfshellcmd);
+		this.vercmd = vercmd;
 	}
 	private JPF jpf;
 	

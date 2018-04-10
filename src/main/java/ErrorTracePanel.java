@@ -31,25 +31,25 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-//import gov.nasa.jpf.Config;
-import se.kth.tracedata.jpf.Config;
+import gov.nasa.jpf.Config;
+//import se.kth.tracedata.jpf.Config;
 //import gov.nasa.jpf.report.Publisher;
 import se.kth.tracedata.Publisher;
 //import se.kth.tracedata.jpf.Publisher;
-//import gov.nasa.jpf.shell.ShellManager;
-import se.kth.tracedata.shell.ShellManager;
-//import gov.nasa.jpf.shell.ShellCommand;
-import se.kth.tracedata.shell.ShellCommand;
-//import gov.nasa.jpf.shell.ShellCommandListener;
-import se.kth.tracedata.shell.ShellCommandListener;
+import gov.nasa.jpf.shell.ShellManager;
+//import se.kth.tracedata.shell.ShellManager;
+import gov.nasa.jpf.shell.ShellCommand;
+//import se.kth.tracedata.shell.ShellCommand;
+import gov.nasa.jpf.shell.ShellCommandListener;
+//import se.kth.tracedata.shell.ShellCommandListener;
 //import se.kth.shell.ShellManager;
 import gov.nasa.jpf.shell.ShellPanel;
-//import gov.nasa.jpf.shell.commands.VerifyCommand;
-import se.kth.tracedata.shell.VerifyCommand;
-///import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
-import se.kth.tracedata.shell.VerifyCommandListener;
-//import gov.nasa.jpf.shell.util.ProgressTrackerUI;
-import se.kth.tracedata.shell.ProgressTrackerUI;
+import gov.nasa.jpf.shell.commands.VerifyCommand;
+//import se.kth.tracedata.shell.VerifyCommand;
+import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
+//import se.kth.tracedata.shell.VerifyCommandListener;
+import gov.nasa.jpf.shell.util.ProgressTrackerUI;
+//import se.kth.tracedata.shell.ProgressTrackerUI;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
 //import gov.nasa.jpf.vm.Path;
@@ -198,6 +198,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 		}
 
 		boolean found = false;
+		
 		for (Publisher publisher : command.getJPF().getReporter().getPublishers()) {
 			if (publisher instanceof ErrorTracePrinter) {
 				if (!found) {
