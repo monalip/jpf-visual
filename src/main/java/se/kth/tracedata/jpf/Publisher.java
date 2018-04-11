@@ -11,21 +11,21 @@ import java.util.List;
  * also has to work for non-stream based reporting, i.e. within Eclipse
  * (we don't want to re-parse from text reports there)
  */
-public class Publisher implements se.kth.tracedata.Publisher {
+public class Publisher implements se.kth.tracedata.Publisher  {
 	
-	
+	static gov.nasa.jpf.Config jpfconfig;
+	static gov.nasa.jpf.report.Reporter jpfreporter;
 	gov.nasa.jpf.report.Publisher jpfpublisher;
 	public List<gov.nasa.jpf.report.Publisher> publishers = new ArrayList<gov.nasa.jpf.report.Publisher>();
-	public Publisher()
-	{
 	
-	}
 	
-	public Publisher (gov.nasa.jpf.report.Publisher jpfpublisher) {
-	  	
+	
+public Publisher (gov.nasa.jpf.report.Publisher jpfpublisher) {
+	
 	    this.jpfpublisher = jpfpublisher; 
 	    
 	  }
+
 	
 /*public Publisher (List<gov.nasa.jpf.report.Publisher> jpfpublisher) {
 	  	

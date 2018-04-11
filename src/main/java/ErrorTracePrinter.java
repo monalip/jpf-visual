@@ -1,33 +1,29 @@
 import java.io.PrintWriter;
 
+import gov.nasa.jpf.Config;
+import gov.nasa.jpf.report.Publisher;
+
 //import gov.nasa.jpf.report.Publisher;
 
 //import gov.nasa.jpf.Config;
 
 //import se.kth.tracedata.Reporter;
-import se.kth.tracedata.Reporter;
+//import se.kth.tracedata.Reporter;
 //import se.kth.tracedata.jpf.Config;
-import se.kth.tracedata.jpf.Publisher;
+//import se.kth.tracedata.jpf.Publisher;
 
-//import gov.nasa.jpf.vm.Path;
-import se.kth.tracedata.Path;
+import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
 //import se.kth.tracedata.jpf.Path;
+import gov.nasa.jpf.report.Reporter;
 
-public class ErrorTracePrinter  extends Publisher{
-
-	protected ErrorTracePrinter() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+public class ErrorTracePrinter extends Publisher {
 
 	Path path;
-	Reporter reporter;
-	
 
-	/*public ErrorTracePrinter(Config conf, Reporter reporter) {
-		super(conf,reporter);
-	}*/
+	public ErrorTracePrinter(Config conf, Reporter reporter) {
+		super(conf, reporter);
+	}
 
 	@Override
 	public String getName() {
@@ -56,18 +52,11 @@ public class ErrorTracePrinter  extends Publisher{
 
 	@Override
 	protected void publishTrace() {
-		
+		path = reporter.getPath();
 	}
 
-	
 	public Path getPath() {
-		path =   reporter.getPath();
-		
-		if(path != null)
-		{
-			return  path.clone();
-		}
-		return null;
+		return path.clone();
 	}
 
 }

@@ -3,13 +3,14 @@ package se.kth.tracedata.jpf;
 import java.util.ArrayList;
 import java.util.List;
 
+import gov.nasa.jpf.Config;
 //import gov.nasa.jpf.report.Publisher;
 import se.kth.tracedata.jpf.Publisher;
 //import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.jpf.Path;
 
 
-public class Reporter implements se.kth.tracedata.Reporter{
+public class Reporter implements se.kth.tracedata.Reporter {
 	
 	gov.nasa.jpf.report.Reporter jpfreporter;
 	
@@ -33,6 +34,7 @@ public class Reporter implements se.kth.tracedata.Reporter{
 		return Publishers;
 	    
 	  }
+	 
 	
 	
 }

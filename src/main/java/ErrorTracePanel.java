@@ -9,8 +9,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,9 +34,10 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import gov.nasa.jpf.Config;
+import gov.nasa.jpf.report.Publisher;
 //import se.kth.tracedata.jpf.Config;
 //import gov.nasa.jpf.report.Publisher;
-import se.kth.tracedata.Publisher;
+//import se.kth.tracedata.Publisher;
 //import se.kth.tracedata.jpf.Publisher;
 import gov.nasa.jpf.shell.ShellManager;
 //import se.kth.tracedata.shell.ShellManager;
@@ -52,8 +55,8 @@ import gov.nasa.jpf.shell.util.ProgressTrackerUI;
 //import se.kth.tracedata.shell.ProgressTrackerUI;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-//import gov.nasa.jpf.vm.Path;
-import se.kth.tracedata.Path;
+import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
 
 /**
  * Basic output panel that divides new trace printer's results into browseable
@@ -96,6 +99,8 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 	private ClassFieldExplorer classFieldExplorer;
 	private ClassMethodExplorer classMethodExplorer;
+	protected List<se.kth.tracedata.jpf.Publisher> Publishers = new ArrayList<se.kth.tracedata.jpf.Publisher>();
+	
 
 	public ErrorTracePanel() {
 		super("Error Trace", null, "View JPF's Output");
@@ -199,7 +204,8 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 		boolean found = false;
 		
-		for (Publisher publisher : command.getJPF().getReporter().getPublishers()) {
+		for(Publisher publisher: command.getJPF().getReporter().getPublishers())
+		{
 			if (publisher instanceof ErrorTracePrinter) {
 				if (!found) {
 					found = true;

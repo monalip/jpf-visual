@@ -19,9 +19,10 @@ import gov.nasa.jpf.vm.ChoiceGenerator;
 import gov.nasa.jpf.vm.ClassInfo;
 import gov.nasa.jpf.vm.Instruction;
 import gov.nasa.jpf.vm.MethodInfo;
-//import gov.nasa.jpf.vm.Path;
-import se.kth.tracedata.Path;
-import gov.nasa.jpf.vm.Step;
+import gov.nasa.jpf.vm.Path;
+//import se.kth.tracedata.Path;
+//import gov.nasa.jpf.vm.Step;
+import se.kth.tracedata.Step;
 import gov.nasa.jpf.vm.ThreadInfo;
 import gov.nasa.jpf.vm.Transition;
 //import se.kth.tracedata.Transition;
@@ -135,7 +136,7 @@ public class TraceData {
 				height++;
 				TextLine txtSrc = null;
 				for (int si = 0; si < transition.getStepCount(); si++) {
-					Step s = transition.getStep(si);
+					Step s = new se.kth.tracedata.jpf.Step(transition.getStep(si));
 					String line = s.getLineString();
 					if (line != null) {
 						String src = line.replaceAll("/\\*.*?\\*/", "").replaceAll("//.*$", "")
@@ -400,7 +401,7 @@ public class TraceData {
 
 	private void processTextLineForSynchronizedMethods(TextLine tl) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step s = tl.getTransition().getStep(si);
+			Step s = new se.kth.tracedata.jpf.Step(tl.getTransition().getStep(si));
 			Instruction insn = s.getInstruction();
 			if (insn instanceof VirtualInvocation) {
 				VirtualInvocation vinsn = (VirtualInvocation) insn;
@@ -446,7 +447,7 @@ public class TraceData {
 	private void processTextLineForClassField(TextLine tl, String clsName, String target, Set<String> srcSet,
 			Set<Pair<Integer, Integer>> targetSet) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step step = tl.getTransition().getStep(si);
+			Step step = new se.kth.tracedata.jpf.Step(tl.getTransition().getStep(si));
 			Instruction insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (clsName.equals(cName) && srcSet.contains(insn.getFileLocation())) {
@@ -486,7 +487,7 @@ public class TraceData {
 	private void processTextLineForClassMethod(TextLine tl, Map<String, String> srcMap,
 			Set<Pair<Integer, Integer>> targetSet, String clsName, String methodName) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step step = tl.getTransition().getStep(si);
+			Step step = new se.kth.tracedata.jpf.Step(tl.getTransition().getStep(si));
 			Instruction insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (cName.equals(srcMap.get(insn.getFileLocation()))) {
