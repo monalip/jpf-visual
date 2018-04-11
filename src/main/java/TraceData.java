@@ -23,7 +23,8 @@ import gov.nasa.jpf.vm.Path;
 //import se.kth.tracedata.Path;
 //import gov.nasa.jpf.vm.Step;
 import se.kth.tracedata.Step;
-import gov.nasa.jpf.vm.ThreadInfo;
+//import gov.nasa.jpf.vm.ThreadInfo;
+import se.kth.tracedata.ThreadInfo;
 import gov.nasa.jpf.vm.Transition;
 //import se.kth.tracedata.Transition;
 import gov.nasa.jpf.vm.bytecode.FieldInstruction;
@@ -125,7 +126,7 @@ public class TraceData {
 				ChoiceGenerator<?> cg = transition.getChoiceGenerator();
 
 				if (cg instanceof ThreadChoiceFromSet) {
-					ThreadInfo ti = transition.getThreadInfo();
+					ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
 					processChoiceGenerator(cg, prevThreadIdx, pi, height, ti);
 				}
 
@@ -177,7 +178,7 @@ public class TraceData {
 
 					Instruction insn = s.getInstruction();
 					MethodInfo mi = insn.getMethodInfo();
-					ThreadInfo ti = transition.getThreadInfo();
+					ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
 
 					loadSynchronizedMethod(line, mi);
 
@@ -191,7 +192,7 @@ public class TraceData {
 				}
 				prevThreadIdx = transition.getThreadIndex();
 
-				ThreadInfo ti = transition.getThreadInfo();
+				ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
 				// final transition wait
 				if (pi == group.size() - 1 && i == to) {
 					loadFinaWaitInFinalTransition(ti, pi, height);
