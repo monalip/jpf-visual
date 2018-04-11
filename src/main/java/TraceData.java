@@ -18,7 +18,8 @@ import se.kth.tracedata.Pair;
 import gov.nasa.jpf.vm.ChoiceGenerator;
 import gov.nasa.jpf.vm.ClassInfo;
 import gov.nasa.jpf.vm.Instruction;
-import gov.nasa.jpf.vm.MethodInfo;
+//import gov.nasa.jpf.vm.MethodInfo;
+import se.kth.tracedata.MethodInfo;
 import gov.nasa.jpf.vm.Path;
 //import se.kth.tracedata.Path;
 //import gov.nasa.jpf.vm.Step;
@@ -177,7 +178,7 @@ public class TraceData {
 					}
 
 					Instruction insn = s.getInstruction();
-					MethodInfo mi = insn.getMethodInfo();
+					MethodInfo mi = new se.kth.tracedata.jpf.MethodInfo(insn.getMethodInfo());
 					ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
 
 					loadSynchronizedMethod(line, mi);
