@@ -1,14 +1,16 @@
 package se.kth.tracedata.jpf;
 
 import java.io.PrintWriter;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import gov.nasa.jpf.vm.Transition;
-//import se.kth.tracedata.jpf.Transition;
+
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.jpf.Transition;
 
 
-public class Path implements se.kth.tracedata.Path{
+public class Path implements se.kth.tracedata.Path,Iterable<Transition> {
 	
 	 gov.nasa.jpf.vm.Path jpfpath;
 	 String             application;  
@@ -38,7 +40,7 @@ public class Path implements se.kth.tracedata.Path{
 	  }
 
 	  public Transition getLast () {
-		  return(jpfpath.getLast());
+		  return new se.kth.tracedata.jpf.Transition((jpfpath.getLast()));
 	  }
 
 	  public void add (Transition t) {
@@ -88,20 +90,37 @@ public class Path implements se.kth.tracedata.Path{
 	  }
 	  
 	  
-	  public Transition get (int pos) {
-		    return stack.get(pos);
-		  }
+	  
 
+	@Override
 	public Iterator<Transition> iterator() {
-		return stack.iterator();
+		Iterator<gov.nasa.jpf.vm.Transition> jpftraniter = jpfpath.iterator();
+		Iterator<Transition> transiter = new Iterator<Transition>() {
+
+			@Override
+			public boolean hasNext() {
+				
+				return(jpftraniter.hasNext());
+			}
+
+			@Override
+			public Transition next() {
+				return new se.kth.tracedata.jpf.Transition(jpftraniter.next());
+			}
+		};
+		
+		return transiter;
+	}
+
+	@Override
+	public Transition get(int pos) {
+		return new Transition(jpfpath.get(pos));
 	}
 
 	
+	
 
-	public Iterator<Transition> descendingIterator() {
-		return stack.descendingIterator();
-	}
-
+	
 	
 
 

@@ -55,8 +55,8 @@ import gov.nasa.jpf.shell.util.ProgressTrackerUI;
 //import se.kth.tracedata.shell.ProgressTrackerUI;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-import gov.nasa.jpf.vm.Path;
-//import se.kth.tracedata.Path;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.Path;
 
 /**
  * Basic output panel that divides new trace printer's results into browseable
@@ -77,7 +77,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 	private ProgressTrackerUI tracker = new ProgressTrackerUI();
 	private CardLayout layout = new CardLayout();
-	private Path path;
+	private se.kth.tracedata.jpf.Path path;
 	private TraceData td = null;
 
 	private JPanel userControlPanel = new JPanel();
@@ -210,7 +210,8 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 				if (!found) {
 					found = true;
 				}
-				path = ((ErrorTracePrinter) publisher).getPath();
+				//path = ((ErrorTracePrinter) publisher).getPath();
+				path = ((ErrorTracePrinter) publisher).getPath(); 
 			}
 		}
 		if (found && path != null) {

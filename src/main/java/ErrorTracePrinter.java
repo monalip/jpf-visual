@@ -12,14 +12,14 @@ import gov.nasa.jpf.report.Publisher;
 //import se.kth.tracedata.jpf.Config;
 //import se.kth.tracedata.jpf.Publisher;
 
-import gov.nasa.jpf.vm.Path;
-//import se.kth.tracedata.Path;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.Path;
 //import se.kth.tracedata.jpf.Path;
 import gov.nasa.jpf.report.Reporter;
 
 public class ErrorTracePrinter extends Publisher {
 
-	Path path;
+	se.kth.tracedata.jpf.Path path;
 
 	public ErrorTracePrinter(Config conf, Reporter reporter) {
 		super(conf, reporter);
@@ -52,10 +52,10 @@ public class ErrorTracePrinter extends Publisher {
 
 	@Override
 	protected void publishTrace() {
-		path = reporter.getPath();
+		path = new se.kth.tracedata.jpf.Path(reporter.getPath());
 	}
 
-	public Path getPath() {
+	public se.kth.tracedata.jpf.Path getPath() {
 		return path.clone();
 	}
 

@@ -1,6 +1,9 @@
 package se.kth.tracedata.jpf;
 
 import java.util.ArrayList;
+
+//import com.google.common.base.Function;
+//import com.google.common.collect.Iterators;
 import java.util.Iterator;
 import java.lang.Iterable;
 
@@ -9,7 +12,17 @@ import gov.nasa.jpf.vm.ChoiceGenerator;
 import se.kth.tracedata.ThreadInfo;
 import se.kth.tracedata.jpf.Step;;
 
-public class Transition implements se.kth.tracedata.Transition,Iterable<Step>{
+public class Transition implements se.kth.tracedata.Transition, Iterable<Step>{
+	Iterator<gov.nasa.jpf.vm.Step> jpfiterator;
+	/*Function<gov.nasa.jpf.vm.Step,Step> func = new Function<gov.nasa.jpf.vm.Step,Step>(){
+
+		@Override
+		public Step apply(gov.nasa.jpf.vm.Step arg0) {
+			// TODO Auto-generated method stub
+			return new Step(arg0);
+		}
+		
+	};*/
 	
 	private Step   first, last;
 	gov.nasa.jpf.vm.Transition jpfTransition;
@@ -17,7 +30,7 @@ public class Transition implements se.kth.tracedata.Transition,Iterable<Step>{
 		this.jpfTransition =jpfTransition;
 		
 	}
-	Iterator<gov.nasa.jpf.vm.Step> jpfiterator = jpfTransition.iterator();
+	
 	public Transition(Iterator<gov.nasa.jpf.vm.Step> jpfiterator)
 	{
 		this.jpfiterator = jpfiterator;
@@ -51,32 +64,36 @@ public class Transition implements se.kth.tracedata.Transition,Iterable<Step>{
 		return jpfTransition.getStepCount();
 	}
 
-
 	@Override
-	public Iterator<Step> iterator() {
-		Iterator<Step> stepIter= new Iterator<Step>() {
+	public Iterator<Step> iterator()
+	{
+		Iterator<gov.nasa.jpf.vm.Step> jpftraniter = jpfTransition.iterator();
+	
+	Iterator<Step> transiter = new Iterator<Step>() {
+
+		@Override
+		public boolean hasNext() {
 			
-			@Override
-			public Step next() {
-				
-				return new Step(jpfiterator.next());
-			}
-			
-			@Override
-			public boolean hasNext() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-		};
-		
-		/*Iterator<Step> step;
-		while(stepIterator.hasNext())
-		{
-			//step.next() = new Step(jpfiterator.next());
-		}*/
-		return stepIter;
+			return(jpftraniter.hasNext());
+		}
+
+		@Override
+		public Step next() {
+			return new se.kth.tracedata.jpf.Step(jpftraniter.next());
+		}
+	};
+	
+	
+	return transiter;
+
 	}
+	/*@Override
+	public Iterator<Transition> iterator() {
+		//Iterator<gov.nasa.jpf.vm.Step> jpfiterator = jpfTransition.iterator();
+		//Iterator<Step> stepIter = Iterators.transform(jpfiterator, func);
+		
+		return null;
+	}*/
 	
 	
 

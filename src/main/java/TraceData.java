@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
+ 
 //import se.kth.tracedata.JVMInvokeInstruction;
 //import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
 import se.kth.tracedata.JVMReturnInstruction;
@@ -25,24 +26,25 @@ import se.kth.tracedata.ClassInfo;
 import gov.nasa.jpf.vm.Instruction;
 //import gov.nasa.jpf.vm.MethodInfo;
 import se.kth.tracedata.MethodInfo;
-import gov.nasa.jpf.vm.Path;
-//import se.kth.tracedata.Path;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.Path;
 //import gov.nasa.jpf.vm.Step;
 import se.kth.tracedata.Step;
 //import gov.nasa.jpf.vm.ThreadInfo;
 import se.kth.tracedata.ThreadInfo;
-import gov.nasa.jpf.vm.Transition;
-//import se.kth.tracedata.Transition;
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.Transition;
 import gov.nasa.jpf.vm.bytecode.FieldInstruction;
 //import se.kth.tracedata.FieldInstruction;
 import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+//import se.kth.tracedata.ThreadChoiceFromSet;
 
 public class TraceData {
 
 	private int numOfThreads = -1;
 	private List<String> threadNames = null;
 
-	private Path path;
+	private se.kth.tracedata.jpf.Path path;
 	
 	
 
@@ -60,7 +62,7 @@ public class TraceData {
 	private Map<String, Set<String>> classFieldNameMap = new HashMap<>();
 	private Map<String, Set<String>> classMethodNameMap = new HashMap<>();
 
-	public TraceData(Path path) {
+	public TraceData(se.kth.tracedata.jpf.Path path) {
 		this.path = path;
 		if (path.size() == 0) {
 			return; // nothing to publish
@@ -86,7 +88,8 @@ public class TraceData {
 		int currTran = 0;
 		int prevThread = -1;
 		int start = -1;
-		for (Transition t : path ){
+	
+		for(Transition t: path) {
 			int currThread = t.getThreadIndex();
 			if (threadNames.size() == currThread) {
 				threadNames.add(t.getThreadInfo().getName());
@@ -133,7 +136,7 @@ public class TraceData {
 				ChoiceGenerator<?> cg = transition.getChoiceGenerator();
 
 				if (cg instanceof ThreadChoiceFromSet) {
-					ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
+					ThreadInfo ti = transition.getThreadInfo();
 					processChoiceGenerator(cg, prevThreadIdx, pi, height, ti);
 				}
 
@@ -144,7 +147,7 @@ public class TraceData {
 				height++;
 				TextLine txtSrc = null;
 				for (int si = 0; si < transition.getStepCount(); si++) {
-					Step s = new se.kth.tracedata.jpf.Step(transition.getStep(si));
+					Step s = transition.getStep(si);
 					String line = s.getLineString();
 					if (line != null) {
 						String src = line.replaceAll("/\\*.*?\\*/", "").replaceAll("//.*$", "")
@@ -185,7 +188,7 @@ public class TraceData {
 
 					Instruction insn = s.getInstruction();
 					MethodInfo mi = new se.kth.tracedata.jpf.MethodInfo(insn.getMethodInfo());
-					ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
+					ThreadInfo ti = transition.getThreadInfo();
 
 					loadSynchronizedMethod(line, mi);
 
@@ -199,7 +202,7 @@ public class TraceData {
 				}
 				prevThreadIdx = transition.getThreadIndex();
 
-				ThreadInfo ti = new se.kth.tracedata.jpf.ThreadInfo(transition.getThreadInfo());
+				ThreadInfo ti = transition.getThreadInfo();
 				// final transition wait
 				if (pi == group.size() - 1 && i == to) {
 					loadFinaWaitInFinalTransition(ti, pi, height);
@@ -409,7 +412,7 @@ public class TraceData {
 
 	private void processTextLineForSynchronizedMethods(TextLine tl) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step s = new se.kth.tracedata.jpf.Step(tl.getTransition().getStep(si));
+			Step s = tl.getTransition().getStep(si);
 			Instruction insn = s.getInstruction();
 			if (insn instanceof VirtualInvocation) {
 				VirtualInvocation vinsn = (VirtualInvocation) insn;
@@ -455,7 +458,7 @@ public class TraceData {
 	private void processTextLineForClassField(TextLine tl, String clsName, String target, Set<String> srcSet,
 			Set<Pair<Integer, Integer>> targetSet) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step step = new se.kth.tracedata.jpf.Step(tl.getTransition().getStep(si));
+			Step step = tl.getTransition().getStep(si);
 			Instruction insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (clsName.equals(cName) && srcSet.contains(insn.getFileLocation())) {
@@ -495,7 +498,7 @@ public class TraceData {
 	private void processTextLineForClassMethod(TextLine tl, Map<String, String> srcMap,
 			Set<Pair<Integer, Integer>> targetSet, String clsName, String methodName) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step step = new se.kth.tracedata.jpf.Step(tl.getTransition().getStep(si));
+			Step step = tl.getTransition().getStep(si);
 			Instruction insn = step.getInstruction();
 			String cName = insn.getMethodInfo().getClassInfo().getName();
 			if (cName.equals(srcMap.get(insn.getFileLocation()))) {

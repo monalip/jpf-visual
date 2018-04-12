@@ -4,11 +4,12 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import gov.nasa.jpf.vm.Transition;
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.Transition;
 
 //import gov.nasa.jpf.vm.Transition;
 
-public interface Path extends Cloneable,Iterable<Transition>{
+public interface Path {
 	
 			
 			//clone check
@@ -34,9 +35,7 @@ public interface Path extends Cloneable,Iterable<Transition>{
 
 			  public void removeLast () ;
 			 
-			 public Iterator<Transition> iterator () ;
-			  
-			  public Iterator<Transition> descendingIterator() ;
+			 
 			
 			  public Transition get (int pos);
 
