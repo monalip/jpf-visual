@@ -1,6 +1,7 @@
 package se.kth.tracedata.jpf;
 
-import gov.nasa.jpf.vm.ClassInfo;
+//import gov.nasa.jpf.vm.ClassInfo;
+import se.kth.tracedata.jpf.ClassInfo;
 
 public class MethodInfo implements se.kth.tracedata.MethodInfo
 {
@@ -15,7 +16,7 @@ public class MethodInfo implements se.kth.tracedata.MethodInfo
 	}
 	@Override
 	public ClassInfo getClassInfo() {
-		return jpfMethodinfo.getClassInfo();
+		return new ClassInfo(jpfMethodinfo.getClassInfo());
 	}
 	@Override
 	public String getUniqueName() {

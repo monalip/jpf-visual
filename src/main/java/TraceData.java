@@ -16,7 +16,8 @@ import se.kth.tracedata.Pair;
 
 
 import gov.nasa.jpf.vm.ChoiceGenerator;
-import gov.nasa.jpf.vm.ClassInfo;
+//import gov.nasa.jpf.vm.ClassInfo;
+import se.kth.tracedata.ClassInfo;
 import gov.nasa.jpf.vm.Instruction;
 //import gov.nasa.jpf.vm.MethodInfo;
 import se.kth.tracedata.MethodInfo;

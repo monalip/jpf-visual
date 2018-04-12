@@ -1,6 +1,7 @@
 package se.kth.tracedata;
 
-import gov.nasa.jpf.vm.ClassInfo;
+//import gov.nasa.jpf.vm.ClassInfo;
+import se.kth.tracedata.jpf.ClassInfo;
 
 public interface MethodInfo {
 	/**

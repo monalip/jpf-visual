@@ -20,5 +20,9 @@ public class ThreadInfo implements se.kth.tracedata.ThreadInfo{
 	public String getStateName() {
 		return jpfThreadinfo.getStateName();
 	}
+	@Override
+	public String getName() {
+		return jpfThreadinfo.getName();
+	}
 
 }
