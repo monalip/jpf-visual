@@ -6,9 +6,13 @@ import java.util.Map;
 import java.util.Set;
 
 import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
-import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
+//import se.kth.tracedata.JVMInvokeInstruction;
+//import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
+import se.kth.tracedata.JVMReturnInstruction;
 import gov.nasa.jpf.jvm.bytecode.LockInstruction;
+//import se.kth.tracedata.LockInstruction;
 import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
+//import se.kth.tracedata.VirtualInvocation;
 //import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
 //import gov.nasa.jpf.util.Pair;
@@ -30,6 +34,7 @@ import se.kth.tracedata.ThreadInfo;
 import gov.nasa.jpf.vm.Transition;
 //import se.kth.tracedata.Transition;
 import gov.nasa.jpf.vm.bytecode.FieldInstruction;
+//import se.kth.tracedata.FieldInstruction;
 import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
 
 public class TraceData {
