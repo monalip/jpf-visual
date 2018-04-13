@@ -12,8 +12,8 @@ import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
 import se.kth.tracedata.JVMReturnInstruction;
 import gov.nasa.jpf.jvm.bytecode.LockInstruction;
 //import se.kth.tracedata.LockInstruction;
-import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
-//import se.kth.tracedata.VirtualInvocation;
+//import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
+import se.kth.tracedata.VirtualInvocation;
 //import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
 //import gov.nasa.jpf.util.Pair;
@@ -21,8 +21,10 @@ import se.kth.tracedata.Pair;
 
 
 import gov.nasa.jpf.vm.ChoiceGenerator;
+//import se.kth.tracedata.ChoiceGenerator;
 //import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
+//import se.kth.tracedata.Instruction;
 import gov.nasa.jpf.vm.Instruction;
 //import gov.nasa.jpf.vm.MethodInfo;
 import se.kth.tracedata.MethodInfo;
