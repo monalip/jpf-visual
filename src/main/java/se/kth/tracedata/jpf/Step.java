@@ -1,7 +1,7 @@
 package se.kth.tracedata.jpf;
 
-import gov.nasa.jpf.vm.Instruction;
-//import se.kth.tracedata.jpf.Instruction;
+//import gov.nasa.jpf.vm.Instruction;
+import se.kth.tracedata.jpf.Instruction;
 
 
 public class Step implements se.kth.tracedata.Step{
@@ -22,8 +22,8 @@ public class Step implements se.kth.tracedata.Step{
 	}
 	@Override
 	public Instruction getInstruction() {
-		//return new Instruction(jpfStep.getInstruction());
-		return jpfStep.getInstruction();
+		return new Instruction(jpfStep.getInstruction());
+		//return jpfStep.getInstruction();
 	}
 	
 

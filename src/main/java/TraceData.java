@@ -24,8 +24,8 @@ import gov.nasa.jpf.vm.ChoiceGenerator;
 //import se.kth.tracedata.ChoiceGenerator;
 //import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
-//import se.kth.tracedata.Instruction;
-import gov.nasa.jpf.vm.Instruction;
+import se.kth.tracedata.Instruction;
+//import gov.nasa.jpf.vm.Instruction;
 //import gov.nasa.jpf.vm.MethodInfo;
 import se.kth.tracedata.MethodInfo;
 //import gov.nasa.jpf.vm.Path;
@@ -189,7 +189,7 @@ public class TraceData {
 					}
 
 					Instruction insn = s.getInstruction();
-					MethodInfo mi = new se.kth.tracedata.jpf.MethodInfo(insn.getMethodInfo());
+					MethodInfo mi = insn.getMethodInfo();
 					ThreadInfo ti = transition.getThreadInfo();
 
 					loadSynchronizedMethod(line, mi);
@@ -320,7 +320,9 @@ public class TraceData {
 	}
 
 	private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
-		if (line != null && insn instanceof LockInstruction) {
+		//if (line != null && insn instanceof LockInstruction) {
+		if (line != null && insn instanceof LockInstruction)
+		{
 			LockInstruction minsn = (LockInstruction) insn;
 			String fieldName = ti.getElementInfo(minsn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
 					"");
@@ -370,6 +372,7 @@ public class TraceData {
 				}
 			}
 		}
+		
 	}
 
 	private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
