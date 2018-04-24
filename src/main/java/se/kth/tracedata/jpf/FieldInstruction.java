@@ -17,14 +17,6 @@ public abstract class FieldInstruction implements  Instruction {
 	}
 
 	
-	public MethodInfo getMethodInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getFileLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

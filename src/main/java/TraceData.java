@@ -15,10 +15,13 @@ import java.util.Set;
 
 
 //import gov.nasa.jpf.jvm.bytecode.LockInstruction;
-import se.kth.tracedata.jpf.LockInstruction;
+//import se.kth.tracedata.jpf.LockInstruction;
 //import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
 
-import se.kth.tracedata.jpf.VirtualInvocation;
+//import se.kth.tracedata.jpf.VirtualInvocation;
+//import gov.nasa.jpf.vm.bytecode.FieldInstruction;
+import se.kth.tracedata.jpf.FieldInstruction;
+
 //import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
 //import gov.nasa.jpf.util.Pair;
@@ -42,8 +45,7 @@ import se.kth.tracedata.ThreadInfo;
 //import gov.nasa.jpf.vm.Transition;
 import se.kth.tracedata.Transition;
 
-//import gov.nasa.jpf.vm.bytecode.FieldInstruction;
-import se.kth.tracedata.jpf.FieldInstruction;
+
 import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
 //import se.kth.tracedata.ThreadChoiceFromSet;
 
@@ -336,7 +338,7 @@ public class TraceData {
 		}
 	}
 
-	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
+/*	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
 		if (line != null && insn instanceof VirtualInvocation) {
 			String insnStr = insn.toString();
 			if (insnStr.contains("java.lang.Object.wait()") || insnStr.contains("java.lang.Object.notify()")
@@ -344,9 +346,20 @@ public class TraceData {
 				waitSet.add(new Pair<>(pi, height - 1));
 			}
 		}
-	}
+	}*/
 	
-
+	
+	//check the insn instanceof VirtualInvocation using method isInstanceofVirtualInv()  
+	
+	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
+		if (line != null && insn.isInstanceofVirtualInv()) {
+			String insnStr = insn.toString();
+			if (insnStr.contains("java.lang.Object.wait()") || insnStr.contains("java.lang.Object.notify()")
+					|| insnStr.contains("java.lang.Object.notifyAll()")) {
+				waitSet.add(new Pair<>(pi, height - 1));
+			}
+		}
+	}
 
 	/*private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
 		//if (line != null && insn instanceof LockInstruction) {
@@ -429,8 +442,11 @@ public class TraceData {
 	}
 
 	private void loadFields(String line, Instruction insn, TextLine txtSrc) {
-		if (line != null && txtSrc != null && txtSrc.isSrc() && insn instanceof FieldInstruction) {
-			String name = ((FieldInstruction) insn).getVariableId();
+		//insn instanceof FieldInstruction is checking with the help of method  isInstanceofFieldIns() 
+		if (line != null && txtSrc != null && txtSrc.isSrc() && insn.isInstanceofFieldIns()) {
+			//as method directly created insde instruction adapter hence we can call it using insn object and the there no need of casting
+			//String name = ((FieldInstruction) insn).getVariableId();
+			String name = insn.getVariableId();
 			int dotPos = name.lastIndexOf(".");
 			if (dotPos == 0 || dotPos == name.length() - 1) {
 			} else {
@@ -445,10 +461,7 @@ public class TraceData {
 				}
 			}
 		}
-		if(!(insn instanceof FieldInstruction))
-		{
-			System.out.println("Not instance");
-		}
+		
 		
 	}
 	
@@ -518,10 +531,16 @@ private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
 			Step s = tl.getTransition().getStep(si);
 			Instruction insn = s.getInstruction();
-			if (insn instanceof VirtualInvocation) {
-				VirtualInvocation vinsn = (VirtualInvocation) insn;
-				String cName = vinsn.getInvokedMethodClassName();
-				String tmp = cName + "." + vinsn.getInvokedMethodName();
+			
+			//
+			//if (insn instanceof VirtualInvocation) {
+			//this if condition using method isInstanceofVirtualInv() inside instruction. 
+			// if it is a instace of that object then it will call the methods getInvokedMethodClassName() and getInvokedMethodName of instructions
+				if (insn.isInstanceofVirtualInv())
+				{
+				
+				String cName = insn.getInvokedMethodClassName();
+				String tmp = cName + "." + insn.getInvokedMethodName();
 				Pair<Integer, Integer> pair = new Pair<>(tl.getGroupNum(), tl.getLineNum());
 
 				if (lockMethodName.contains(tmp)) {
@@ -568,8 +587,13 @@ private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 			if (clsName.equals(cName) && srcSet.contains(insn.getFileLocation())) {
 				targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
 				break;
-			} else if (insn instanceof FieldInstruction) {
-				if (((FieldInstruction) insn).getVariableId().equals(target)) {
+			} 
+			//else if (insn instanceof FieldInstruction) {
+			//if condition is checked using method isInstanceofFieldIns()
+			else if (insn.isInstanceofFieldIns()) {
+				//method is called directly using insn object as method is now created inside instreuction adapter itsel instade of FieldInstruction class
+				//hence there is no need of seperate FieldInstruction class
+				if (insn.getVariableId().equals(target)) {
 					targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
 					srcSet.add(insn.getFileLocation());
 					break;

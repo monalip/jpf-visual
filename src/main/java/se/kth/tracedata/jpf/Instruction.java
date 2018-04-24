@@ -72,6 +72,29 @@ public class Instruction implements se.kth.tracedata.Instruction {
 	public int getLastLockRef() {
 		return ((gov.nasa.jpf.jvm.bytecode.LockInstruction)jpfInstruction).getLastLockRef();
 	}
+	@Override
+	public boolean isInstanceofVirtualInv() {
+		
+		if(jpfInstruction instanceof gov.nasa.jpf.jvm.bytecode.VirtualInvocation)
+		{
+			return true;
+		}
+		else
+		{
+		return false;
+		}
+	}
+	@Override
+	public boolean isInstanceofFieldIns() {
+		return(jpfInstruction instanceof gov.nasa.jpf.vm.bytecode.FieldInstruction);
+		
+		
+	}
+	@Override
+	public String getVariableId() {
+		// TODO Auto-generated method stub
+		return ((gov.nasa.jpf.vm.bytecode.FieldInstruction)jpfInstruction).getVariableId();
+	}
 	
 	
 

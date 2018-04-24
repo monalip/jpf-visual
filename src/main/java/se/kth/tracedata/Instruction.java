@@ -13,5 +13,9 @@ public interface Instruction {
 	public  boolean isInstanceofJVMReturnIns();
 	public  boolean isInstanceofLockIns();
 	public int getLastLockRef();
+	public  boolean isInstanceofVirtualInv();
+	public  boolean isInstanceofFieldIns();
+	public String getVariableId();
+	
 	
 }
