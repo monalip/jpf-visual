@@ -1,5 +1,6 @@
 package se.kth.tracedata;
 
-public interface JVMReturnInstruction {
+public abstract class JVMReturnInstruction extends Instruction{
+
 
 }

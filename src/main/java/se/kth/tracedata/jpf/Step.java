@@ -23,7 +23,7 @@ public class Step implements se.kth.tracedata.Step{
 	@Override
 	public Instruction getInstruction() {
 		return new Instruction(jpfStep.getInstruction());
-		//return jpfStep.getInstruction();
+		///return jpfStep.getInstruction();
 	}
 	
 

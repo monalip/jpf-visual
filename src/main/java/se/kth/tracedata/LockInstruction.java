@@ -1,9 +1,12 @@
 package se.kth.tracedata;
 
-public interface LockInstruction {
+//import gov.nasa.jpf.vm.Instruction;
+
+public abstract class LockInstruction extends Instruction
+{
 	/**
 	    * only useful post-execution (in an instructionExecuted() notification)
 	    */
-	  public int getLastLockRef () ;
+	  public abstract int getLastLockRef () ;
 
 }

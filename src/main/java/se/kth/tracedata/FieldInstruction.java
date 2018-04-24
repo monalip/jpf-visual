@@ -1,6 +1,8 @@
 package se.kth.tracedata;
 
-public interface FieldInstruction {
-	public String getVariableId ();
 
+
+public abstract class FieldInstruction extends Instruction {
+	
+		public abstract String getVariableId() ;
 }

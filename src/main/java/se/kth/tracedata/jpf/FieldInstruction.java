@@ -1,20 +1,30 @@
 package se.kth.tracedata.jpf;
 
-//import gov.nasa.jpf.vm.Instruction;
-import se.kth.tracedata.jpf.Instruction;
+import se.kth.tracedata.Instruction;
 
-public class FieldInstruction  extends Instruction implements se.kth.tracedata.FieldInstruction{
+public abstract class FieldInstruction extends Instruction {
 	gov.nasa.jpf.vm.bytecode.FieldInstruction jpfFieldinstruction;
-	gov.nasa.jpf.vm.Instruction jpfInstruction;
+	
 	
 	public FieldInstruction(gov.nasa.jpf.vm.bytecode.FieldInstruction jFieldInstruction)
 	{
-		super(jFieldInstruction);
+			
 		this.jpfFieldinstruction = jFieldInstruction;
 	}
-	@Override
+	
 	public String getVariableId() {
 		return jpfFieldinstruction.getVariableId();
+	}
+
+	
+	public MethodInfo getMethodInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getFileLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

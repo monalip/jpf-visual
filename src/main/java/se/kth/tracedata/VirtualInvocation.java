@@ -1,7 +1,7 @@
 package se.kth.tracedata;
 
-public interface VirtualInvocation {
-	public String getInvokedMethodName ();
-	 public String getInvokedMethodClassName();
+public abstract class VirtualInvocation  extends Instruction{
+	public abstract String getInvokedMethodName ();
+	 public abstract String getInvokedMethodClassName();
 
 }
