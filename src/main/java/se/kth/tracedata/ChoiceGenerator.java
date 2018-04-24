@@ -8,5 +8,7 @@ public interface ChoiceGenerator<T> {
 	 //boolean method is created to check choicegenerator is instace of ThreadChoiceFromSet
 	 boolean isInstaceofThreadChoiceFromSet();
 	 public ThreadInfo getChoice (int idx);
+	 public ThreadInfo[] getChoices();
+		  
 
 }

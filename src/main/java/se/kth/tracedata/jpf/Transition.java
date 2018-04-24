@@ -96,6 +96,11 @@ public class Transition implements se.kth.tracedata.Transition, Iterable<Step>{
 		
 		return null;
 	}*/
+
+	@Override
+	public String getOutput() {
+		return jpfTransition.getOutput();
+	}
 	
 	
 

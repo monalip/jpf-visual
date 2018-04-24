@@ -26,29 +26,37 @@ import java.util.TreeMap;
 
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.Error;
-import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
+//import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
 import gov.nasa.jpf.report.Publisher;
 import gov.nasa.jpf.report.Reporter;
 import gov.nasa.jpf.report.Statistics;
-import gov.nasa.jpf.util.Left;
-import gov.nasa.jpf.util.Pair;
-import gov.nasa.jpf.vm.ClassInfo;
+//import gov.nasa.jpf.util.Left;
+import se.kth.tracedata.Left;
+import se.kth.tracedata.ChoiceGenerator;
+//import gov.nasa.jpf.vm.ClassInfo;
+import se.kth.tracedata.ClassInfo;
 import gov.nasa.jpf.vm.ClassLoaderInfo;
-import gov.nasa.jpf.vm.Instruction;
-import gov.nasa.jpf.vm.MethodInfo;
-import gov.nasa.jpf.vm.Path;
-import gov.nasa.jpf.vm.Step;
-import gov.nasa.jpf.vm.ThreadInfo;
-import gov.nasa.jpf.vm.Transition;
+//import gov.nasa.jpf.vm.Instruction;
+import se.kth.tracedata.Instruction;
+//import gov.nasa.jpf.vm.MethodInfo;
+import se.kth.tracedata.MethodInfo;
+//import gov.nasa.jpf.vm.Path;
+import se.kth.tracedata.Path;
+//import gov.nasa.jpf.vm.Step;
+import se.kth.tracedata.Step;
+//import gov.nasa.jpf.vm.ThreadInfo;
+import se.kth.tracedata.ThreadInfo;
+//import gov.nasa.jpf.vm.Transition;
+import se.kth.tracedata.Transition;
 import gov.nasa.jpf.vm.VM;
-import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+
 
 public class TraceVisualPrinter extends Publisher {
 
 	// output destinations
 	String fileName;
 	FileOutputStream fos;
-	Path path;
+	private se.kth.tracedata.jpf.Path path;
 
 	String port;
 
@@ -247,7 +255,8 @@ public class TraceVisualPrinter extends Publisher {
 	// this is the main method we use to experiment
 	@Override
 	protected void publishTrace() {
-		this.path = reporter.getPath();
+		//Type mismatch: cannot convert from gov.nasa.jpf.vm.Path to se.kth.tracedata.Path error is resolved using Path adapter
+		this.path = new se.kth.tracedata.jpf.Path(reporter.getPath());
 		int i = 0;
 
 		if (path.size() == 0) {
@@ -256,15 +265,20 @@ public class TraceVisualPrinter extends Publisher {
 
 		publishTopicStart("trace " + reporter.getCurrentErrorId());
 
-		for (Transition t : path) {
+		for (se.kth.tracedata.jpf.Transition t : path) {
 			out.print("------------------------------------------------------ ");
 			out.println("transition #" + i++ + " thread: " + t.getThreadIndex());
 
 			if (showCG) {
 				out.println(t.getChoiceGenerator());
-				if (t.getChoiceGenerator() instanceof ThreadChoiceFromSet) {
+				//if (t.getChoiceGenerator() instanceof ThreadChoiceFromSet) {
+				// t.getChoiceGenerator() instanceof ThreadChoiceFromSet this condition is checked using isInstaceofThreadChoiceFromSet() method of choicegenerator
+				ChoiceGenerator<?> cg = t.getChoiceGenerator();
+				if (cg.isInstaceofThreadChoiceFromSet()) {
 
-					for (ThreadInfo ti : ((ThreadChoiceFromSet) t.getChoiceGenerator()).getChoices()) {
+					//for (ThreadInfo ti : ((ThreadChoiceFromSet) t.getChoiceGenerator()).getChoices()) {
+					//getChoices method is directly created inside the choicegenerator so no need of casting
+					for (ThreadInfo ti : cg.getChoices()) {
 						out.println("	ti: " + ti);
 					}
 
@@ -307,12 +321,23 @@ public class TraceVisualPrinter extends Publisher {
 						/* more information of the trace */
 						if (true) {
 							Instruction insn = s.getInstruction();
-							if (insn instanceof JVMInvokeInstruction) {
-								out.println("JVMInvokeInstruction: "
-										+ ((JVMInvokeInstruction) insn).getInvokedMethodClassName() + "."
-										+ ((JVMInvokeInstruction) insn).getInvokedMethodName().replaceAll("\\(.*$",
-												""));
-							}
+							//if (insn instanceof JVMInvokeInstruction) {
+							//if condition is checked using isInstanceofJVMInvok() method
+							
+								if (insn.isInstanceofJVMInvok())
+								{
+									///
+									/*out.println("JVMInvokeInstruction: "
+											+ ((JVMInvokeInstruction) insn).getInvokedMethodClassName() + "."
+											+ ((JVMInvokeInstruction) insn).getInvokedMethodName().replaceAll("\\(.*$",
+													""));*/
+									
+									// above methods are defined in instrutor class so no need of casting
+									out.println("JVMInvokeInstruction: "
+											+ insn.getInvokedMethodClassName() + "."
+											+ insn.getInvokedMethodName().replaceAll("\\(.*$",
+													""));
+								}
 
 							if (true) {
 								MethodInfo mi = insn.getMethodInfo();
@@ -340,7 +365,7 @@ public class TraceVisualPrinter extends Publisher {
 
 	@Override
 	protected void publishOutput() {
-		Path path = reporter.getPath();
+		se.kth.tracedata.jpf.Path path = new se.kth.tracedata.jpf.Path(reporter.getPath());
 
 		if (path.size() == 0) {
 			return; // nothing to publish

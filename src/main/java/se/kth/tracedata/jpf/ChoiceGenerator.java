@@ -33,5 +33,22 @@ public class ChoiceGenerator<T> implements se.kth.tracedata.ChoiceGenerator<T> {
 		return new ThreadInfo(threainfo);
 	}
 
+	@Override
+	public ThreadInfo[] getChoices() {
+		// TODO Auto-generated method stub
+		gov.nasa.jpf.vm.ThreadInfo[] list =((gov.nasa.jpf.vm.choice.ThreadChoiceFromSet)jpfChoicegen).getAllChoices();
+		//list is of array of threadinfo which is of type gov.nasa.jpf.vm.ThreadInfo 
+		// so convert whole array of se.kth.tracedata.ThreadInfo we need to access each element and convert it to our type by using adapter
+		//add that element to array of our type 
+		ThreadInfo[] threadlist = new ThreadInfo[list.length];
+		
+		
+		for(int i =0;i<list.length;i++)
+		{
+			threadlist[i] = new ThreadInfo(list[i]);
+		}
+		 return threadlist; 
+	}
+
 
 }

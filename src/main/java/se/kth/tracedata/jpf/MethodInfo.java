@@ -5,7 +5,7 @@ import se.kth.tracedata.jpf.ClassInfo;
 
 public class MethodInfo implements se.kth.tracedata.MethodInfo
 {
-	gov.nasa.jpf.vm.MethodInfo jpfMethodinfo;
+	static gov.nasa.jpf.vm.MethodInfo jpfMethodinfo;
 	public MethodInfo(gov.nasa.jpf.vm.MethodInfo jpfMethodinfo)
 	{
 		this.jpfMethodinfo = jpfMethodinfo;
@@ -29,6 +29,10 @@ public class MethodInfo implements se.kth.tracedata.MethodInfo
 	@Override
 	public String getClassName() {
 		return jpfMethodinfo.getClassName();
+	}
+	
+	public static int getNumberOfLoadedMethods() {
+		return jpfMethodinfo.getNumberOfLoadedMethods();
 	}
 
 }

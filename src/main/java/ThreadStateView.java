@@ -15,7 +15,7 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxLayoutManager;
 
-import gov.nasa.jpf.vm.Transition;
+
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
 //import gov.nasa.jpf.vm.Path;

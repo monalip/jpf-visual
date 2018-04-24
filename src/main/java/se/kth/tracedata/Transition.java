@@ -14,5 +14,6 @@ public interface Transition {
 	// don't use this for step iteration - this is very inefficient
 	  public Step getStep (int index) ;
 	  public int getStepCount ();
+	  public String getOutput ();
 
 }
