@@ -8,10 +8,12 @@ import java.util.Set;
 //import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
  
 
-//removed this file as the method has been created in instruction adapter itself 
+//removed below files as the method has been created in instruction adapter itself 
 //import se.kth.tracedata.jpf.JVMInvokeInstruction;
 //import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
-import se.kth.tracedata.jpf.JVMReturnInstruction;
+//import se.kth.tracedata.jpf.JVMReturnInstruction;
+
+
 //import gov.nasa.jpf.jvm.bytecode.LockInstruction;
 import se.kth.tracedata.jpf.LockInstruction;
 //import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
@@ -376,7 +378,26 @@ public class TraceData {
 				lockTable.put(fieldName, newSet);
 			}
 		}
-		if (line != null && insn instanceof JVMReturnInstruction) {
+		
+		/*if (line != null && insn instanceof JVMReturnInstruction) {
+			String mName = mi.getFullName();
+			String cName = mi.getClassName();
+			if (lockMethodName.contains(mName)) {
+				Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
+				if (fieldNames.contains(cName)) {
+					lockTable.get(cName).add(pair);
+				} else {
+					fieldNames.add(cName);
+					Set<Pair<Integer, Integer>> newSet = new HashSet<>();
+					newSet.add(pair);
+					lockTable.put(cName, newSet);
+				}
+
+			}
+		}*/
+		
+		//checking insn instanceof JVMReturnInstruction inside method isInstanceofJVMReturnIns() inside instruction adapter
+		if (line != null && insn.isInstanceofJVMReturnIns()) {
 			String mName = mi.getFullName();
 			String cName = mi.getClassName();
 			if (lockMethodName.contains(mName)) {

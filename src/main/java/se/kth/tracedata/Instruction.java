@@ -10,5 +10,6 @@ public abstract class Instruction {
 	public abstract String getInvokedMethodName();
 	public abstract String getInvokedMethodClassName();
 	public abstract boolean isInstanceofJVMInvok();
+	public abstract boolean isInstanceofJVMReturnIns();
 	
 }

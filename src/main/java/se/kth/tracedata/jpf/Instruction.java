@@ -43,6 +43,17 @@ public class Instruction extends se.kth.tracedata.Instruction {
 		return false;
 		}
 	}
+	@Override
+	public boolean isInstanceofJVMReturnIns() {
+		if(jpfInstruction instanceof gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction)
+		{
+			return true;
+		}
+		else
+		{
+		return false;
+		}
+	}
 	
 	
 
