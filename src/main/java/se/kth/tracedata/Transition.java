@@ -1,7 +1,7 @@
 package se.kth.tracedata;
 
-import gov.nasa.jpf.vm.ChoiceGenerator;
-//import se.kth.tracedata.jpf.ChoiceGenerator;
+//import gov.nasa.jpf.vm.ChoiceGenerator;
+import se.kth.tracedata.jpf.ChoiceGenerator;
 //import gov.nasa.jpf.vm.Step;
 import se.kth.tracedata.Step;
 //import gov.nasa.jpf.vm.ThreadInfo;

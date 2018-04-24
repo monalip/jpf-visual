@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.lang.Iterable;
 
 
-import gov.nasa.jpf.vm.ChoiceGenerator;
-//import se.kth.tracedata.jpf.ChoiceGenerator;
+//import gov.nasa.jpf.vm.ChoiceGenerator;
+import se.kth.tracedata.jpf.ChoiceGenerator;
 import se.kth.tracedata.ThreadInfo;
 import se.kth.tracedata.jpf.Step;;
 
@@ -54,8 +54,8 @@ public class Transition implements se.kth.tracedata.Transition, Iterable<Step>{
 	}
 	@Override
 	public ChoiceGenerator<?> getChoiceGenerator() {
-		//return new ChoiceGenerator(jpfTransition.getChoiceGenerator());
-		return jpfTransition.getChoiceGenerator();
+		return new ChoiceGenerator(jpfTransition.getChoiceGenerator());
+		//return jpfTransition.getChoiceGenerator();
 	}
 	@Override
 	public Step getStep(int index) {

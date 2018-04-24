@@ -20,7 +20,7 @@ import java.util.Set;
 
 //import se.kth.tracedata.jpf.VirtualInvocation;
 //import gov.nasa.jpf.vm.bytecode.FieldInstruction;
-import se.kth.tracedata.jpf.FieldInstruction;
+//import se.kth.tracedata.jpf.FieldInstruction;
 
 //import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
@@ -28,8 +28,8 @@ import se.kth.tracedata.Left;
 import se.kth.tracedata.Pair;
 
 
-import gov.nasa.jpf.vm.ChoiceGenerator;
-//import se.kth.tracedata.ChoiceGenerator;
+//import gov.nasa.jpf.vm.ChoiceGenerator;
+import se.kth.tracedata.ChoiceGenerator;
 //import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
 import se.kth.tracedata.Instruction;
@@ -45,8 +45,8 @@ import se.kth.tracedata.ThreadInfo;
 //import gov.nasa.jpf.vm.Transition;
 import se.kth.tracedata.Transition;
 
-
-import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
+//methods of ThreadChoiceFromSet is created inside the ChoiceGenerator along with condition checking method for cg instance of ThreadChoiceFromSet
+//import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
 //import se.kth.tracedata.ThreadChoiceFromSet;
 
 public class TraceData {
@@ -145,7 +145,10 @@ public class TraceData {
 				int nNoSrc = 0;
 				ChoiceGenerator<?> cg = transition.getChoiceGenerator();
 
-				if (cg instanceof ThreadChoiceFromSet) {
+				//if (cg instanceof ThreadChoiceFromSet) {
+				//if condition is checked with the isInstaceofThreadChoiceFromSet() method in choicegeneraotr 
+				
+				if (cg.isInstaceofThreadChoiceFromSet()) {
 					ThreadInfo ti = transition.getThreadInfo();
 					processChoiceGenerator(cg, prevThreadIdx, pi, height, ti);
 				}
@@ -289,7 +292,10 @@ public class TraceData {
 
 		// START
 		if (cg.getId() == "START") {
-			int tid = ((ThreadChoiceFromSet) cg).getChoice(cg.getTotalNumberOfChoices() - 1).getId();
+			//we have created method getChoice() directly inside the choicegenerator so we can access it
+			// with choicegenerator object we donot need casting 
+			//int tid = ((ThreadChoiceFromSet) cg).getChoice(cg.getTotalNumberOfChoices() - 1).getId();
+			int tid = cg.getChoice(cg.getTotalNumberOfChoices() - 1).getId();
 			Pair<Integer, String> threadState = new Pair<>(tid, "START");
 
 			ArrayList<Pair<Integer, String>> list = new ArrayList<>();
