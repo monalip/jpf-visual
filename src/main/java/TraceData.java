@@ -345,27 +345,39 @@ public class TraceData {
 			}
 		}
 	}
+	
+
+
 	/*private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
-		if(insn instanceof LockInstruction)
-		{
-			System.out.println("Helppo");
-		}
-		else
-		{
-			System.out.println("Not instance");
-		}
-
-		
-		
-	}*/
-
-
-	private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
 		//if (line != null && insn instanceof LockInstruction) {
 		if (line != null && insn instanceof LockInstruction)
 		{
 			LockInstruction minsn = (LockInstruction) insn;
 			String fieldName = ti.getElementInfo(minsn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
+					"");
+			Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
+
+			if (fieldNames.contains(fieldName)) {
+				lockTable.get(fieldName).add(pair);
+			} else {
+				fieldNames.add(fieldName);
+				Set<Pair<Integer, Integer>> newSet = new HashSet<>();
+				newSet.add(pair);
+				lockTable.put(fieldName, newSet);
+			}
+		}*/
+	
+	// created the methods of LockInstruction inside the Instruction adapter and checking the insn is the instaceof condition using 
+	// fuction isInstanceofLockIns.
+	//hence methods are directly calling with the help of Instruction object.
+	
+	
+	private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
+		//if (line != null && insn instanceof LockInstruction) {
+		if (line != null && insn.isInstanceofLockIns())
+		{
+			//LockInstruction minsn = (LockInstruction) insn;
+			String fieldName = ti.getElementInfo(insn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
 					"");
 			Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
 

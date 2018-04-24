@@ -2,7 +2,7 @@ package se.kth.tracedata.jpf;
 
 import se.kth.tracedata.Instruction;
 
-public abstract class FieldInstruction extends Instruction {
+public abstract class FieldInstruction implements  Instruction {
 	gov.nasa.jpf.vm.bytecode.FieldInstruction jpfFieldinstruction;
 	
 	
