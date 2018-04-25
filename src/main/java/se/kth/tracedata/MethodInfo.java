@@ -18,9 +18,7 @@ public interface MethodInfo {
 	   */
 	  public String getFullName ();
 	  public String getClassName ();
-	  public static int getNumberOfLoadedMethods () {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	  
+	
 
 }

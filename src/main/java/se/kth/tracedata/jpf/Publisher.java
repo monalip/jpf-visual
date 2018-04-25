@@ -25,6 +25,10 @@ public Publisher (gov.nasa.jpf.report.Publisher jpfpublisher) {
 	    this.jpfpublisher = jpfpublisher; 
 	    
 	  }
+public Publisher(gov.nasa.jpf.Config jpfconfig,gov.nasa.jpf.report.Reporter jpfreporter)
+{
+	
+}
 
 	
 /*public Publisher (List<gov.nasa.jpf.report.Publisher> jpfpublisher) {

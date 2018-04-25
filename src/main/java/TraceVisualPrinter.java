@@ -19,23 +19,28 @@
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import gov.nasa.jpf.Config;
-import gov.nasa.jpf.Error;
+//import gov.nasa.jpf.Error;
+import se.kth.tracedata.Error;
 //import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
 import gov.nasa.jpf.report.Publisher;
+//import se.kth.tracedata.
 import gov.nasa.jpf.report.Reporter;
+//import se.kth.tracedata.Reporter;
 import gov.nasa.jpf.report.Statistics;
 //import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
 import se.kth.tracedata.ChoiceGenerator;
 //import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
-import gov.nasa.jpf.vm.ClassLoaderInfo;
+//import gov.nasa.jpf.vm.ClassLoaderInfo;
+import se.kth.tracedata.ClassLoaderInfo;
 //import gov.nasa.jpf.vm.Instruction;
 import se.kth.tracedata.Instruction;
 //import gov.nasa.jpf.vm.MethodInfo;
@@ -193,7 +198,7 @@ public class TraceVisualPrinter extends Publisher {
 
 	@Override
 	protected void publishError() {
-		Error e = reporter.getCurrentError();
+		Error e = new se.kth.tracedata.jpf.Error(reporter.getCurrentError());
 
 		publishTopicStart("error " + e.getId());
 		out.println(e.getDescription());
@@ -214,7 +219,13 @@ public class TraceVisualPrinter extends Publisher {
 
 	@Override
 	protected void publishResult() {
-		List<Error> errors = reporter.getErrors();
+		List<gov.nasa.jpf.Error> jpferrors = reporter.getErrors();
+		//convert list of nas a errors to se.kth.tracedata type errors
+		List<Error> errors=  new ArrayList<Error>();
+		for(gov.nasa.jpf.Error err : jpferrors)
+		{
+			errors.add(new se.kth.tracedata.jpf.Error(err));
+		}
 
 		publishTopicStart("results");
 
@@ -426,8 +437,8 @@ public class TraceVisualPrinter extends Publisher {
 		pw.println("instructions:       " + stat.insns);
 		pw.println("max memory:         " + (stat.maxUsed >> 20) + "MB");
 
-		pw.println("loaded code:        classes=" + ClassLoaderInfo.getNumberOfLoadedClasses() + ",methods="
-				+ MethodInfo.getNumberOfLoadedMethods());
+		pw.println("loaded code:        classes=" + se.kth.tracedata.jpf.ClassLoaderInfo.getNumberOfLoadedClasses() + ",methods="
+				+ se.kth.tracedata.jpf.MethodInfo.getNumberOfLoadedMethods());
 	}
 
 	@Override

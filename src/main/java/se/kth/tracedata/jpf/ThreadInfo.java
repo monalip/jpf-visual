@@ -1,6 +1,7 @@
 package se.kth.tracedata.jpf;
 
-import gov.nasa.jpf.vm.ElementInfo;
+//import gov.nasa.jpf.vm.ElementInfo;
+import se.kth.tracedata.jpf.ElementInfo;
 
 public class ThreadInfo implements se.kth.tracedata.ThreadInfo{
 	gov.nasa.jpf.vm.ThreadInfo  jpfThreadinfo;
@@ -14,7 +15,7 @@ public class ThreadInfo implements se.kth.tracedata.ThreadInfo{
 	}
 	@Override
 	public ElementInfo getElementInfo(int objRef) {
-		return jpfThreadinfo.getElementInfo(objRef);
+		return new ElementInfo(jpfThreadinfo.getElementInfo(objRef));
 	}
 	@Override
 	public String getStateName() {
