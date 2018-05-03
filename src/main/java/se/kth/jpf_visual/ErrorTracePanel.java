@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -32,6 +34,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+
 
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.report.Publisher;
@@ -214,6 +218,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 				path = ((ErrorTracePrinter) publisher).getPath(); 
 			}
 		}
+		System.out.println(path);
 		if (found && path != null) {
 			// reset
 			td = new TraceData(path);

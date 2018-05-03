@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Map;
@@ -10,19 +12,19 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-public class ClassMethodExplorer extends JPanel {
+public class ClassFieldExplorer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTree tree;
 	private TraceData td;
 
-	public ClassMethodExplorer(TraceData td) {
+	public ClassFieldExplorer(TraceData td) {
 
 		super(new GridLayout(1, 0));
 		this.td = td;
 
 		// Create the nodes.
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Methods");
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Fields");
 		createNodes(top);
 
 		// Create a tree that allows one selection at a time.
@@ -59,34 +61,46 @@ public class ClassMethodExplorer extends JPanel {
 	private void createNodes(DefaultMutableTreeNode top) {
 		DefaultMutableTreeNode parent = null;
 		DefaultMutableTreeNode leaf = null;
-		Map<String, Set<String>> classMethodStructure = td.getClassMethodStructure();
+		Map<String, Set<String>> classFieldStructure = td.getClassFieldStructure();
 
-		for (String clsName : classMethodStructure.keySet()) {
+		for (String clsName : classFieldStructure.keySet()) {
 
 			parent = new DefaultMutableTreeNode(clsName);
 			top.add(parent);
 
-			for (String methodName : classMethodStructure.get(clsName)) {
-				leaf = new DefaultMutableTreeNode(new MethodNode(clsName, methodName));
+			for (String fieldName : classFieldStructure.get(clsName)) {
+				leaf = new DefaultMutableTreeNode(new FieldNode(clsName, fieldName));
 				parent.add(leaf);
 			}
 		}
 
 	}
-
 }
 
-class MethodNode {
-	public String clsName;
-	public String methodName;
+class MyJTree extends JTree {
 
-	public MethodNode(String clsName, String methodName) {
+	private static final long serialVersionUID = 1L;
+
+	public MyJTree(DefaultMutableTreeNode top) {
+		super(top);
+	}
+
+	public void clear() {
+		this.clearToggledPaths();
+	}
+}
+
+class FieldNode {
+	public String clsName;
+	public String fieldName;
+
+	public FieldNode(String clsName, String fieldName) {
 		this.clsName = clsName;
-		this.methodName = methodName;
+		this.fieldName = fieldName;
 	}
 
 	public String toString() {
-		return this.methodName;
+		return this.fieldName;
 	}
 
 }

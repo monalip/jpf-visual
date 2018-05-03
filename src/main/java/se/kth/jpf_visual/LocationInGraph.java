@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

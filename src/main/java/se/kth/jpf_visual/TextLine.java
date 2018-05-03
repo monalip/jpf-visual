@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 
 import java.util.HashSet;
 import java.util.Set;

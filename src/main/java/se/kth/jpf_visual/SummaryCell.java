@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 
 public class SummaryCell {
 	private Object summary;

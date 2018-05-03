@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 
 /*
  * Copyright (C) 2014, United States Government, as represented by the

@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;

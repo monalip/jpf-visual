@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 import java.io.PrintWriter;
 
 import gov.nasa.jpf.Config;

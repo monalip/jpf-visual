@@ -1,3 +1,5 @@
+package se.kth.jpf_visual;
+
 
 //
 // Copyright (C) 2010 Igor Andjelkovic (igor.andjelkovic@gmail.com).
