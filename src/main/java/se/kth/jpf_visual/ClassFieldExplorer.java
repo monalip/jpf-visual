@@ -90,7 +90,11 @@ class MyJTree extends JTree {
 	}
 }
 
-class FieldNode {
+//class FieldNode {   
+// changed the visibility to public as we have to use this class in the ErrorTracePanel. 
+//As public type class need to be defined in its own file hence we are creating new class of FieldNode
+	
+/*public class FieldNode {   
 	public String clsName;
 	public String fieldName;
 
@@ -103,4 +107,4 @@ class FieldNode {
 		return this.fieldName;
 	}
 
-}
+}*/

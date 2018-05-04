@@ -10,13 +10,13 @@ native_classpath+=./bin/
 
 # register console trace printer as a publisher
 report.publisher+=, consoleTracePrinter
-report.consoleTracePrinter.class=TraceVisualPrinter
+report.consoleTracePrinter.class=se.kth.jpf_visual.TraceVisualPrinter
 # print trace when property is violated
 report.consoleTracePrinter.property_violation=trace
 
 shell=.shell.basicshell.BasicShell
 shell.panels+= ,traceServer
-shell.panels.traceServer=TraceVisualPanel
+shell.panels.traceServer=se.kth.jpf_visual.TraceVisualPanel
 
 #suppress console output
 #report.console.finished=

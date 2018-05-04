@@ -46,6 +46,7 @@ import se.kth.tracedata.Step;
 import se.kth.tracedata.ThreadInfo;
 //import gov.nasa.jpf.vm.Transition;
 import se.kth.tracedata.Transition;
+import se.kth.tracedata.jpf.ElementInfo;
 
 //methods of ThreadChoiceFromSet is created inside the ChoiceGenerator along with condition checking method for cg instance of ThreadChoiceFromSet
 //import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
@@ -398,7 +399,14 @@ public class TraceData {
 		if (line != null && insn.isInstanceofLockIns())
 		{
 			//LockInstruction minsn = (LockInstruction) insn;
-			String fieldName = ti.getElementInfo(insn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
+			ElementInfo e= ti.getElementInfo(insn.getLastLockRef());
+			
+			// we have changed the code by caling another function getElementInfo(e) to get the value of FieldName DingPhils because 
+			// after creating adapter for the ElementInfo we are getting its value as se.kth.tracedata.jpf.ElementInfo and
+			// this value was showing in the jpf-visual but instead we want the fieldname.
+			String elemInfo = e.elementInfotoString(e);
+			
+			String fieldName = elemInfo.replace("$", ".").replaceAll("@.*",
 					"");
 			Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
 

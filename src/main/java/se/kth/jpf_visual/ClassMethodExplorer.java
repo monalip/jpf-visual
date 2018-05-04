@@ -78,7 +78,11 @@ public class ClassMethodExplorer extends JPanel {
 
 }
 
-class MethodNode {
+//changed the visibility to public as we have to use this class in the ErrorTracePanel. 
+//As public type class need to be defined in its own file hence we are creating new class of MethodNode
+
+
+/*public class MethodNode {
 	public String clsName;
 	public String methodName;
 
@@ -91,4 +95,4 @@ class MethodNode {
 		return this.methodName;
 	}
 
-}
+}*/

@@ -16,11 +16,11 @@ report.errorTracePrinter.property_violation=trace
 
 # register console errorTracePrinter as a publisher
 report.publisher+=, errorTracePrinter
-report.errorTracePrinter.class=ErrorTracePrinter
+report.errorTracePrinter.class=se.kth.jpf_visual.ErrorTracePrinter
 
 #turn on the shell
 shell=.shell.basicshell.BasicShell
 
 #turn on the new panel
 shell.panels+= ,errorTrace
-shell.panels.errorTrace=ErrorTracePanel
+shell.panels.errorTrace=se.kth.jpf_visual.ErrorTracePanel
