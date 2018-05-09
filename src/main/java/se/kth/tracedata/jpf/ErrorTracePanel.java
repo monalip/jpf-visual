@@ -78,7 +78,12 @@ public  class ErrorTracePanel extends ShellPanel implements VerifyCommandListene
 	private static final String PROGRESS = "PROGRESS";
 	public ProgressTrackerUI tracker = new ProgressTrackerUI();
 	private se.kth.tracedata.jpf.Path path;
+	
+	
 	private TraceData td = null;
+
+
+
 
 	
 	private ErrorTableAndMapPane errorTrace = new ErrorTableAndMapPane();
@@ -86,16 +91,19 @@ public  class ErrorTracePanel extends ShellPanel implements VerifyCommandListene
 	public se.kth.jpf_visual.gui.ErrorTracePanel gui = new se.kth.jpf_visual.gui.ErrorTracePanel();
 	private CardLayout layout = new CardLayout();
 	private static final long serialVersionUID = 1L;
+	
 
 	public ErrorTracePanel() {
 		super("Error Trace", null, "View JPF's Output");
 		ShellManager.getManager().addCommandListener(VerifyCommand.class, this);
 		JPanel tablePanel = new JPanel();
-		tablePanel=  gui.Initialization();
+		tablePanel=  gui.tablePanel;
+		
 		setLayout(layout);
 
 		add(tablePanel, TOPICS);
 		add(tracker,PROGRESS);
+		
 		
 		layout.show(this, PROGRESS);
 		
@@ -150,8 +158,6 @@ public void postCommand(VerifyCommand command) {
 					{
 						// reset
 						td = new TraceData(path);
-						//errorTrace.draw(td);
-						
 						gui.drowErrTrace(path,found);
 						
 						layout.show(this, TOPICS);

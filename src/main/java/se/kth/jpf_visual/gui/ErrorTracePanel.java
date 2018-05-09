@@ -58,7 +58,7 @@ import se.kth.tracedata.Path;
  * when the VerifyCommand is executed.
  */
 
-public class ErrorTracePanel extends Container{
+public class ErrorTracePanel{
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -90,11 +90,11 @@ public class ErrorTracePanel extends Container{
 
 		private ClassFieldExplorer classFieldExplorer;
 		private ClassMethodExplorer classMethodExplorer;
+		public JPanel tablePanel = new JPanel();
 
-		
-		public JPanel Initialization()
+		public ErrorTracePanel()
 		{
-			JPanel tablePanel = new JPanel();
+			
 			tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
 			tablePanel.add(statusLabel);
 			userControlPanel.setLayout(new BoxLayout(userControlPanel, BoxLayout.Y_AXIS));
@@ -118,7 +118,6 @@ public class ErrorTracePanel extends Container{
 			tablePanel.setBackground(Color.white);
 
 			tablePanel.add(splitPane);
-			return tablePanel;
 		}
 		
 		private class CheckBoxListener implements ItemListener {
@@ -149,7 +148,7 @@ public class ErrorTracePanel extends Container{
 			threadStartBox.addItemListener(checkBoxListener);
 
 		}
-		private void initFoldExpandButtons() {
+		public void initFoldExpandButtons() {
 			foldAllButton = new JButton("Collapse all");
 			foldAllButton.setMnemonic(KeyEvent.VK_C);
 			foldAllButton.setActionCommand("foldAll");
@@ -193,18 +192,11 @@ public class ErrorTracePanel extends Container{
 			
 			// install buttons, check boxes, dropdown list
 			
-			//installFoldExpandButtons();
+			installFoldExpandButtons();
 			
 			errorTrace.setButton(foldAllButton, expandAllButton);
-			//installCheckBoxes();
-			//installDropDownList();
-			/*
-			 * Example for working
-			 * 
-			 * 
-			 */
-			
-
+			installCheckBoxes();
+			installDropDownList();
 			
 		}
 		
