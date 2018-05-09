@@ -58,7 +58,11 @@ public class ErrorTracePrinter extends Publisher {
 	}
 
 	public se.kth.tracedata.jpf.Path getPath() {
-		return path.clone();
+		path = new se.kth.tracedata.jpf.Path(reporter.getPath());
+		if (path != null) {
+			return path;
+			}
+			return null;
 	}
 
 }

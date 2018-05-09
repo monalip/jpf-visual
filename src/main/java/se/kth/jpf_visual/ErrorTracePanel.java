@@ -39,24 +39,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.report.Publisher;
-//import se.kth.tracedata.jpf.Config;
-//import gov.nasa.jpf.report.Publisher;
-//import se.kth.tracedata.Publisher;
-//import se.kth.tracedata.jpf.Publisher;
 import gov.nasa.jpf.shell.ShellManager;
-//import se.kth.tracedata.shell.ShellManager;
-import gov.nasa.jpf.shell.ShellCommand;
-//import se.kth.tracedata.shell.ShellCommand;
-import gov.nasa.jpf.shell.ShellCommandListener;
-//import se.kth.tracedata.shell.ShellCommandListener;
-//import se.kth.shell.ShellManager;
 import gov.nasa.jpf.shell.ShellPanel;
 import gov.nasa.jpf.shell.commands.VerifyCommand;
-//import se.kth.tracedata.shell.VerifyCommand;
 import gov.nasa.jpf.shell.listeners.VerifyCommandListener;
-//import se.kth.tracedata.shell.VerifyCommandListener;
 import gov.nasa.jpf.shell.util.ProgressTrackerUI;
-//import se.kth.tracedata.shell.ProgressTrackerUI;
+import se.kth.jpf_visual.ClassFieldExplorer;
+import se.kth.jpf_visual.ClassMethodExplorer;
+import se.kth.jpf_visual.ErrorTableAndMapPane;
+import se.kth.jpf_visual.ErrorTracePrinter;
+import se.kth.jpf_visual.FieldNode;
+import se.kth.jpf_visual.MethodNode;
+import se.kth.jpf_visual.PaneConstants;
+import se.kth.jpf_visual.TraceData;
 //import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
 //import gov.nasa.jpf.vm.Path;
@@ -105,12 +100,11 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 	private ClassMethodExplorer classMethodExplorer;
 	protected List<se.kth.tracedata.jpf.Publisher> Publishers = new ArrayList<se.kth.tracedata.jpf.Publisher>();
 	
-
+	
 	public ErrorTracePanel() {
 		super("Error Trace", null, "View JPF's Output");
 		//ShellManager.getManager().addCommandListener(VerifyCommand.class, this);
 		ShellManager.getManager().addCommandListener(VerifyCommand.class, this);
-
 		JPanel tablePanel = new JPanel();
 		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
 		tablePanel.add(statusLabel);
@@ -141,7 +135,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 		layout.show(this, PROGRESS);
 
 	}
-
+	
 	private void initFoldExpandButtons() {
 		foldAllButton = new JButton("Collapse all");
 		foldAllButton.setMnemonic(KeyEvent.VK_C);
@@ -205,6 +199,9 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 			statusLabel.setText("The JPF run completed successfully");
 			statusLabel.setForeground(Color.BLACK);
 		}
+		//'Added displayErrMsg(boolean err) which If there is an error in program. 
+
+		//gui.displayErrMsg(command.errorOccured());
 
 		boolean found = false;
 		
@@ -218,16 +215,18 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 				path = ((ErrorTracePrinter) publisher).getPath(); 
 			}
 		}
-		System.out.println(path);
+		
 		if (found && path != null) {
 			// reset
 			td = new TraceData(path);
+			
+			///gui.drowErrTrace(path, found,td);
 			errorTrace.draw(td);
+
 			userControlPanel.removeAll();
 			selectTable = new LinkedHashMap<>();
 			colors.clear();
 			colorID = 2;
-
 			// install buttons, check boxes, dropdown list
 			installFoldExpandButtons();
 			errorTrace.setButton(foldAllButton, expandAllButton);
@@ -280,6 +279,7 @@ public class ErrorTracePanel extends ShellPanel implements VerifyCommandListener
 
 		// add monitor enter/exit and synchronized method check boxes
 		for (String s : fieldNames) {
+			System.out.println(s);
 			JCheckBox cb = new JCheckBox("(un)lock: " + s);
 			cb.setSelected(false);
 			cb.addItemListener(checkBoxListener);
