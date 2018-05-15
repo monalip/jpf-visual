@@ -90,12 +90,4 @@ public class Instruction implements se.kth.tracedata.Instruction {
 		
 		
 	}
-	@Override
-	public String getVariableId() {
-		// TODO Auto-generated method stub
-		return ((gov.nasa.jpf.vm.bytecode.FieldInstruction)jpfInstruction).getVariableId();
-	}
-	
-	
-
 }

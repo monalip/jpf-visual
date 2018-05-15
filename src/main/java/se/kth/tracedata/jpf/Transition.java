@@ -11,7 +11,7 @@ import java.lang.Iterable;
 //import gov.nasa.jpf.vm.ChoiceGenerator;
 import se.kth.tracedata.jpf.ChoiceGenerator;
 import se.kth.tracedata.ThreadInfo;
-import se.kth.tracedata.jpf.Step;;
+import se.kth.tracedata.Step;
 
 public class Transition implements se.kth.tracedata.Transition, Iterable<Step>{
 	Iterator<gov.nasa.jpf.vm.Step> jpfiterator;
@@ -59,7 +59,7 @@ public class Transition implements se.kth.tracedata.Transition, Iterable<Step>{
 	}
 	@Override
 	public Step getStep(int index) {
-		return new Step(jpfTransition.getStep(index));
+		return new se.kth.tracedata.jpf.Step(jpfTransition.getStep(index));
 	}
 	@Override
 	public int getStepCount() {

@@ -34,6 +34,7 @@ import se.kth.tracedata.Pair;
 import se.kth.tracedata.ChoiceGenerator;
 //import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
+import se.kth.tracedata.FieldInstruction;
 import se.kth.tracedata.Instruction;
 //import gov.nasa.jpf.vm.Instruction;
 //import gov.nasa.jpf.vm.MethodInfo;
@@ -57,7 +58,7 @@ public class TraceData {
 	private int numOfThreads = -1;
 	private List<String> threadNames = null;
 
-	private se.kth.tracedata.jpf.Path path;
+	private Path path;
 	
 	
 
@@ -75,7 +76,7 @@ public class TraceData {
 	private Map<String, Set<String>> classFieldNameMap = new HashMap<>();
 	private Map<String, Set<String>> classMethodNameMap = new HashMap<>();
 
-	public TraceData(se.kth.tracedata.jpf.Path path) {
+	public TraceData(Path path) {
 		this.path = path;
 		if (path.size() == 0) {
 			return; // nothing to publish
@@ -204,7 +205,7 @@ public class TraceData {
 						txtSrc.setEndStep(si);
 					}
 
-					se.kth.tracedata.jpf.Instruction insn = s.getInstruction();
+					Instruction insn = s.getInstruction();
 					MethodInfo mi = insn.getMethodInfo();
 					ThreadInfo ti = transition.getThreadInfo();
 					
@@ -462,7 +463,7 @@ public class TraceData {
 		if (line != null && txtSrc != null && txtSrc.isSrc() && insn.isInstanceofFieldIns()) {
 			//as method directly created insde instruction adapter hence we can call it using insn object and the there no need of casting
 			//String name = ((FieldInstruction) insn).getVariableId();
-			String name = insn.getVariableId();
+			String name = ((FieldInstruction)insn).getVariableId();
 			int dotPos = name.lastIndexOf(".");
 			if (dotPos == 0 || dotPos == name.length() - 1) {
 			} else {
@@ -609,7 +610,7 @@ private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 			else if (insn.isInstanceofFieldIns()) {
 				//method is called directly using insn object as method is now created inside instreuction adapter itsel instade of FieldInstruction class
 				//hence there is no need of seperate FieldInstruction class
-				if (insn.getVariableId().equals(target)) {
+				if (((FieldInstruction)insn).getVariableId().equals(target)) {
 					targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
 					srcSet.add(insn.getFileLocation());
 					break;
