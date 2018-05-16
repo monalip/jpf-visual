@@ -1,15 +1,11 @@
 package se.kth.tracedata;
 
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.LinkedList;
 
-//import gov.nasa.jpf.vm.Transition;
 import se.kth.tracedata.Transition;
 
-//import gov.nasa.jpf.vm.Transition;
 
-public interface Path {
+public interface Path extends Iterable<Transition> {
 	
 			
 			//clone check
@@ -17,11 +13,7 @@ public interface Path {
 			
 			  
 			  public String getApplication () ;
-			 // public Transition getLast ();
-
-			 // public void add (Transition t) ;
-
-			  //public Transition get (int pos) ;
+			 
 
 			  public boolean isEmpty() ;
 			  

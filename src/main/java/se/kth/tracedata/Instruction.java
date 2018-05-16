@@ -1,17 +1,18 @@
 package se.kth.tracedata;
 
-//import gov.nasa.jpf.vm.MethodInfo;
-import se.kth.tracedata.jpf.MethodInfo;
+import se.kth.tracedata.MethodInfo;
 
-public interface Instruction {
-	public  MethodInfo getMethodInfo() ;
-	public  String getFileLocation();
-	public  String getInvokedMethodName();
-	public  String getInvokedMethodClassName();
-	public  boolean isInstanceofJVMInvok();
-	public  boolean isInstanceofJVMReturnIns();
-	public  boolean isInstanceofLockIns();
-	public int getLastLockRef();
-	public  boolean isInstanceofVirtualInv();
-	public  boolean isInstanceofFieldIns();
+public abstract class Instruction {
+	public  abstract MethodInfo getMethodInfo() ;
+	public  abstract String getFileLocation();
+	public  abstract String getInvokedMethodName();
+	public  abstract String getInvokedMethodClassName();
+	public  abstract boolean isInstanceofJVMInvok();
+	public  abstract boolean isInstanceofJVMReturnIns();
+	public  abstract boolean isInstanceofLockIns();
+	public 	abstract int getLastLockRef();
+	public  abstract boolean isInstanceofVirtualInv();
+	public  abstract boolean isInstanceofFieldIns();
+	public 	abstract String getVariableId();
+	
 }

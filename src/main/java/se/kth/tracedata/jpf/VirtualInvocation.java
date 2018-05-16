@@ -1,8 +1,7 @@
 package se.kth.tracedata.jpf;
 
-import se.kth.tracedata.Instruction;
 
-public abstract class VirtualInvocation implements Instruction{
+public abstract class VirtualInvocation extends se.kth.tracedata.VirtualInvocation{
 	gov.nasa.jpf.jvm.bytecode.VirtualInvocation jpfVirtualinvocation;
 	
 	public VirtualInvocation(gov.nasa.jpf.jvm.bytecode.VirtualInvocation jpfVirtualinvocation)

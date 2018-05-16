@@ -8,11 +8,14 @@ public class ElementInfo {
 	 {
 		 this.jpfElementInfo = jpfElementInfo;
 	 }
-	 public String  elementInfotoString(ElementInfo e)
-	 {
+	 /*
+	  * Not needed anymore
+	  * public String  elementInfotoString(ElementInfo e)
+	  {
 		 String s =e.jpfElementInfo.toString();
 		 return s;
-	 }
-	 
+		 
+	  }
+	 */
 
 }

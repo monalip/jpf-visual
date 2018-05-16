@@ -2,11 +2,8 @@ package se.kth.tracedata;
 
 import java.util.Iterator;
 
-//import gov.nasa.jpf.vm.ChoiceGenerator;
-import se.kth.tracedata.jpf.ChoiceGenerator;
-//import gov.nasa.jpf.vm.Step;
+import se.kth.tracedata.ChoiceGenerator;
 import se.kth.tracedata.Step;
-//import gov.nasa.jpf.vm.ThreadInfo;
 import se.kth.tracedata.ThreadInfo;
 
 public interface Transition extends Iterable<Step> {

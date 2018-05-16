@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-//import javax.swing.JButton;
 
 import com.mxgraph.layout.mxIGraphLayout;
 import com.mxgraph.layout.mxStackLayout;
@@ -23,12 +22,10 @@ import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxLayoutManager;
 
-import gov.nasa.jpf.vm.Transition;
-//import gov.nasa.jpf.util.Pair;
+
 import se.kth.tracedata.Pair;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
-//import se.kth.tracedata.jpf.Path;
+
 
 /**
  * Class {@code ContentPane} is the central pane of the error trace panel. Also

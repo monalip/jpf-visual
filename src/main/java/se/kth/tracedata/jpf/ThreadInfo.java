@@ -1,7 +1,5 @@
 package se.kth.tracedata.jpf;
 
-//import gov.nasa.jpf.vm.ElementInfo;
-import se.kth.tracedata.jpf.ElementInfo;
 
 public class ThreadInfo implements se.kth.tracedata.ThreadInfo{
 	gov.nasa.jpf.vm.ThreadInfo  jpfThreadinfo;
@@ -14,16 +12,20 @@ public class ThreadInfo implements se.kth.tracedata.ThreadInfo{
 		return jpfThreadinfo.getId();
 	}
 	@Override
-	public ElementInfo getElementInfo(int objRef) {
-		return new ElementInfo(jpfThreadinfo.getElementInfo(objRef));
-	}
-	@Override
 	public String getStateName() {
 		return jpfThreadinfo.getStateName();
 	}
 	@Override
 	public String getName() {
 		return jpfThreadinfo.getName();
+	}
+	@Override
+	public String getNameOfLastLock(int lastLockRef) {
+		
+		//ElementInfo elementInfo = new ElementInfo(jpfThreadinfo.getElementInfo(lastLockRef));
+		return jpfThreadinfo.getElementInfo(lastLockRef).toString().replace("$", ".").replaceAll("@.*","");
+		
+		
 	}
 
 }

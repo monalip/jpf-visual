@@ -28,32 +28,18 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import gov.nasa.jpf.Config;
-//import gov.nasa.jpf.Error;
 import se.kth.tracedata.Error;
-//import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
 import gov.nasa.jpf.report.Publisher;
-//import se.kth.tracedata.
 import gov.nasa.jpf.report.Reporter;
-//import se.kth.tracedata.Reporter;
 import gov.nasa.jpf.report.Statistics;
-//import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
 import se.kth.tracedata.ChoiceGenerator;
-//import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
-//import gov.nasa.jpf.vm.ClassLoaderInfo;
-import se.kth.tracedata.ClassLoaderInfo;
-//import gov.nasa.jpf.vm.Instruction;
 import se.kth.tracedata.Instruction;
-//import gov.nasa.jpf.vm.MethodInfo;
 import se.kth.tracedata.MethodInfo;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
-//import gov.nasa.jpf.vm.Step;
 import se.kth.tracedata.Step;
-//import gov.nasa.jpf.vm.ThreadInfo;
 import se.kth.tracedata.ThreadInfo;
-//import gov.nasa.jpf.vm.Transition;
 import se.kth.tracedata.Transition;
 import gov.nasa.jpf.vm.VM;
 
@@ -63,7 +49,7 @@ public class TraceVisualPrinter extends Publisher {
 	// output destinations
 	String fileName;
 	FileOutputStream fos;
-	private se.kth.tracedata.jpf.Path path;
+	private Path path;
 
 	String port;
 
@@ -278,7 +264,7 @@ public class TraceVisualPrinter extends Publisher {
 
 		publishTopicStart("trace " + reporter.getCurrentErrorId());
 
-		for (se.kth.tracedata.jpf.Transition t : path) {
+		for (Transition t : path) {
 			out.print("------------------------------------------------------ ");
 			out.println("transition #" + i++ + " thread: " + t.getThreadIndex());
 

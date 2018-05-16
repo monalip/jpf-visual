@@ -1,7 +1,6 @@
 package se.kth.tracedata;
 
-//import gov.nasa.jpf.vm.ThreadInfo;
-import se.kth.tracedata.jpf.ThreadInfo;
+import se.kth.tracedata.ThreadInfo;
 
 public interface ThreadChoiceFromSet {
 	 public ThreadInfo getChoice (int idx);

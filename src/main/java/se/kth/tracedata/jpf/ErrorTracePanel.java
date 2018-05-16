@@ -53,9 +53,7 @@ import se.kth.jpf_visual.FieldNode;
 import se.kth.jpf_visual.MethodNode;
 import se.kth.jpf_visual.PaneConstants;
 import se.kth.jpf_visual.TraceData;
-//import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
 
 /**
@@ -77,7 +75,7 @@ public  class ErrorTracePanel extends ShellPanel implements VerifyCommandListene
 	private static final String TOPICS = "TOPICS";
 	private static final String PROGRESS = "PROGRESS";
 	public ProgressTrackerUI tracker = new ProgressTrackerUI();
-	private se.kth.tracedata.jpf.Path path;
+	private Path path;
 	
 	
 	private TraceData td = null;

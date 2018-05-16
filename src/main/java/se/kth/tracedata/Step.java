@@ -1,7 +1,6 @@
 package se.kth.tracedata;
 
-//import gov.nasa.jpf.vm.Instruction;
-import se.kth.tracedata.jpf.Instruction;
+import se.kth.tracedata.Instruction;
 
 public interface Step {
 	public String getLineString () ;

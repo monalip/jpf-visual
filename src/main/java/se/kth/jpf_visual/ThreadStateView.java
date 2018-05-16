@@ -17,12 +17,8 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxLayoutManager;
 
-
-//import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
-//import se.kth.tracedata.jpf.Path;
 
 public class ThreadStateView {
 

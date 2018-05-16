@@ -7,51 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-//import gov.nasa.jpf.jvm.bytecode.JVMInvokeInstruction;
- 
-
-//removed below files as the method has been created in instruction adapter itself 
-//import se.kth.tracedata.jpf.JVMInvokeInstruction;
-//import gov.nasa.jpf.jvm.bytecode.JVMReturnInstruction;
-//import se.kth.tracedata.jpf.JVMReturnInstruction;
-
-
-//import gov.nasa.jpf.jvm.bytecode.LockInstruction;
-//import se.kth.tracedata.jpf.LockInstruction;
-//import gov.nasa.jpf.jvm.bytecode.VirtualInvocation;
-
-//import se.kth.tracedata.jpf.VirtualInvocation;
-//import gov.nasa.jpf.vm.bytecode.FieldInstruction;
-//import se.kth.tracedata.jpf.FieldInstruction;
-
-//import gov.nasa.jpf.util.Left;
 import se.kth.tracedata.Left;
-//import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-
-
-//import gov.nasa.jpf.vm.ChoiceGenerator;
 import se.kth.tracedata.ChoiceGenerator;
-//import gov.nasa.jpf.vm.ClassInfo;
 import se.kth.tracedata.ClassInfo;
-import se.kth.tracedata.FieldInstruction;
 import se.kth.tracedata.Instruction;
-//import gov.nasa.jpf.vm.Instruction;
-//import gov.nasa.jpf.vm.MethodInfo;
 import se.kth.tracedata.MethodInfo;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
-//import gov.nasa.jpf.vm.Step;
 import se.kth.tracedata.Step;
-//import gov.nasa.jpf.vm.ThreadInfo;
 import se.kth.tracedata.ThreadInfo;
-//import gov.nasa.jpf.vm.Transition;
 import se.kth.tracedata.Transition;
 import se.kth.tracedata.jpf.ElementInfo;
 
 //methods of ThreadChoiceFromSet is created inside the ChoiceGenerator along with condition checking method for cg instance of ThreadChoiceFromSet
-//import gov.nasa.jpf.vm.choice.ThreadChoiceFromSet;
-//import se.kth.tracedata.ThreadChoiceFromSet;
+
 
 public class TraceData {
 
@@ -163,8 +132,6 @@ public class TraceData {
 
 				height++;
 				TextLine txtSrc = null;
-				//3175
-				//3159 for not instance
 				for (int si = 0; si < transition.getStepCount(); si++) {
 					Step s = transition.getStep(si);
 					String line = s.getLineString();
@@ -208,23 +175,6 @@ public class TraceData {
 					Instruction insn = s.getInstruction();
 					MethodInfo mi = insn.getMethodInfo();
 					ThreadInfo ti = transition.getThreadInfo();
-					
-					/*boolean val,temp = false;
-					Instruct ins = null;
-					se.kth.tracedata.Instruction Imp = insn ;
-					//JVMInvokeInstruction jvm = new se.kth.tracedata.jpf.JVMInvokeInstruction(insn);
-					
-					val = ins instanceof Intructextend;
-					temp = jvm instanceof JVMInvokeInstruction;
-					if(val)
-					{
-						System.out.println("Value");
-					}
-					else if(temp)
-					{
-						System.out.println("Temp");
-					}*/
-						
 					
 
 					loadSynchronizedMethod(line, mi);
@@ -348,17 +298,7 @@ public class TraceData {
 		}
 	}
 
-/*	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
-		if (line != null && insn instanceof VirtualInvocation) {
-			String insnStr = insn.toString();
-			if (insnStr.contains("java.lang.Object.wait()") || insnStr.contains("java.lang.Object.notify()")
-					|| insnStr.contains("java.lang.Object.notifyAll()")) {
-				waitSet.add(new Pair<>(pi, height - 1));
-			}
-		}
-	}*/
-	
-	
+
 	//check the insn instanceof VirtualInvocation using method isInstanceofVirtualInv()  
 	
 	private void loadWaitNotify(String line, Instruction insn, int pi, int height) {
@@ -370,45 +310,27 @@ public class TraceData {
 			}
 		}
 	}
-
-	/*private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
-		//if (line != null && insn instanceof LockInstruction) {
-		if (line != null && insn instanceof LockInstruction)
-		{
-			LockInstruction minsn = (LockInstruction) insn;
-			String fieldName = ti.getElementInfo(minsn.getLastLockRef()).toString().replace("$", ".").replaceAll("@.*",
-					"");
-			Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
-
-			if (fieldNames.contains(fieldName)) {
-				lockTable.get(fieldName).add(pair);
-			} else {
-				fieldNames.add(fieldName);
-				Set<Pair<Integer, Integer>> newSet = new HashSet<>();
-				newSet.add(pair);
-				lockTable.put(fieldName, newSet);
-			}
-		}*/
-	
-	// created the methods of LockInstruction inside the Instruction adapter and checking the insn is the instaceof condition using 
-	// fuction isInstanceofLockIns.
-	//hence methods are directly calling with the help of Instruction object.
-	
-	
+/*
+ *  created the methods of LockInstruction inside the Instruction adapter and checking the insn is the instaceof condition using 
+ *	 fuction isInstanceofLockIns. Hence methods are directly calling with the help of Instruction object.
+ * 
+ **/
+		
 	private void loadLockUnlock(String line, Instruction insn, MethodInfo mi, ThreadInfo ti, int pi, int height) {
-		//if (line != null && insn instanceof LockInstruction) {
+		
 		if (line != null && insn.isInstanceofLockIns())
 		{
-			//LockInstruction minsn = (LockInstruction) insn;
-			ElementInfo e= ti.getElementInfo(insn.getLastLockRef());
+			/*
+			 * ElementInfo is used to get the name of the last lock that was used by a thread.
+			 * Hence we removed the getElementInfo in ThreadInfo adapter and we have created another method getNameOfLastLock
+			 * which taking lastlocreference.
+			 * The function internally calling ElementInfo and converting it to the string.
+			 * Returning fieldName 
+			 *
+			 */
 			
-			// we have changed the code by caling another function getElementInfo(e) to get the value of FieldName DingPhils because 
-			// after creating adapter for the ElementInfo we are getting its value as se.kth.tracedata.jpf.ElementInfo and
-			// this value was showing in the jpf-visual but instead we want the fieldname.
-			String elemInfo = e.elementInfotoString(e);
 			
-			String fieldName = elemInfo.replace("$", ".").replaceAll("@.*",
-					"");
+			String fieldName = ti.getNameOfLastLock(insn.getLastLockRef());
 			Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
 
 			if (fieldNames.contains(fieldName)) {
@@ -421,22 +343,6 @@ public class TraceData {
 			}
 		}
 		
-		/*if (line != null && insn instanceof JVMReturnInstruction) {
-			String mName = mi.getFullName();
-			String cName = mi.getClassName();
-			if (lockMethodName.contains(mName)) {
-				Pair<Integer, Integer> pair = new Pair<>(pi, height - 1);
-				if (fieldNames.contains(cName)) {
-					lockTable.get(cName).add(pair);
-				} else {
-					fieldNames.add(cName);
-					Set<Pair<Integer, Integer>> newSet = new HashSet<>();
-					newSet.add(pair);
-					lockTable.put(cName, newSet);
-				}
-
-			}
-		}*/
 		
 		//checking insn instanceof JVMReturnInstruction inside method isInstanceofJVMReturnIns() inside instruction adapter
 		if (line != null && insn.isInstanceofJVMReturnIns()) {
@@ -460,10 +366,14 @@ public class TraceData {
 
 	private void loadFields(String line, Instruction insn, TextLine txtSrc) {
 		//insn instanceof FieldInstruction is checking with the help of method  isInstanceofFieldIns() 
-		if (line != null && txtSrc != null && txtSrc.isSrc() && insn.isInstanceofFieldIns()) {
-			//as method directly created insde instruction adapter hence we can call it using insn object and the there no need of casting
-			//String name = ((FieldInstruction) insn).getVariableId();
-			String name = ((FieldInstruction)insn).getVariableId();
+		//if (line != null && txtSrc != null && txtSrc.isSrc() && insn.isInstanceofFieldIns()) {
+		
+		
+		if(line != null && txtSrc != null && txtSrc.isSrc() && insn.isInstanceofFieldIns()) {
+			/*  as method directly created insde instruction adapter hence we can call it using insn object and the there no need of casting
+			* String name = ((FieldInstruction) insn).getVariableId();
+			* */
+			String name = insn.getVariableId();
 			int dotPos = name.lastIndexOf(".");
 			if (dotPos == 0 || dotPos == name.length() - 1) {
 			} else {
@@ -482,30 +392,16 @@ public class TraceData {
 		
 	}
 	
-	/*private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
-		
-		if (line != null && txtSrc != null && txtSrc.isSrc() && insn instanceof JVMInvokeInstruction) {
-			String methodName = ((JVMInvokeInstruction) insn).getInvokedMethodName().replaceAll("\\(.*$", "");
-			String clsName = ((JVMInvokeInstruction) insn).getInvokedMethodClassName();
-			if (classMethodNameMap.containsKey(clsName)) {
-				classMethodNameMap.get(clsName).add(methodName);
-			} else {
-				Set<String> methods = new HashSet<>();
-				methods.add(methodName);
-				classMethodNameMap.put(clsName, methods);
-			}
-		}
-
-	}*/
-private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
+	private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 	
 	//checkIJVMInvok is checking whether the ins is the instance of JVMInvokeInstruction internally inside instruction adapter		
 	boolean checkIJVMInvok = insn.isInstanceofJVMInvok();
 		
 		if (line != null && txtSrc != null && txtSrc.isSrc() && checkIJVMInvok) {
-			// instead of calling getInvokedMethodName() of JVMInvokeInstruction i have now changed it
-			// I have created methods getInvokedMethodName() and getInvokedMethodClassName() inside instruction interface 
-			//to remove the previous error of instanceof and casting. 
+			/* instead of calling getInvokedMethodName() of JVMInvokeInstruction i have now changed it
+			* I have created methods getInvokedMethodName() and getInvokedMethodClassName() inside instruction interface 
+			*to remove the previous error of instanceof and casting.
+			*/ 
 			String methodName = insn.getInvokedMethodName().replaceAll("\\(.*$", "");
 			String clsName = insn.getInvokedMethodClassName();
 			if (classMethodNameMap.containsKey(clsName)) {
@@ -549,10 +445,12 @@ private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 			Step s = tl.getTransition().getStep(si);
 			Instruction insn = s.getInstruction();
 			
-			//
-			//if (insn instanceof VirtualInvocation) {
-			//this if condition using method isInstanceofVirtualInv() inside instruction. 
-			// if it is a instace of that object then it will call the methods getInvokedMethodClassName() and getInvokedMethodName of instructions
+			/*
+			if (insn instanceof VirtualInvocation) {
+			this if condition using method isInstanceofVirtualInv() inside instruction. 
+			 if it is a instace of that object then it will call the methods getInvokedMethodClassName() and getInvokedMethodName of instructions
+			 * 
+			 */
 				if (insn.isInstanceofVirtualInv())
 				{
 				
@@ -608,9 +506,12 @@ private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 			//else if (insn instanceof FieldInstruction) {
 			//if condition is checked using method isInstanceofFieldIns()
 			else if (insn.isInstanceofFieldIns()) {
+				/*
 				//method is called directly using insn object as method is now created inside instreuction adapter itsel instade of FieldInstruction class
 				//hence there is no need of seperate FieldInstruction class
-				if (((FieldInstruction)insn).getVariableId().equals(target)) {
+				 * 
+				 */
+				if (insn.getVariableId().equals(target)) {
 					targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
 					srcSet.add(insn.getFileLocation());
 					break;
@@ -640,29 +541,6 @@ private void loadMethods(String line, Instruction insn, TextLine txtSrc) {
 		return targetSet;
 	}
 
-	/*private void processTextLineForClassMethod(TextLine tl, Map<String, String> srcMap,
-			Set<Pair<Integer, Integer>> targetSet, String clsName, String methodName) {
-		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {
-			Step step = tl.getTransition().getStep(si);
-			Instruction insn = step.getInstruction();
-			boolean checkJVMInvok = insn.isInstanceofJVMInvok(); 
-			String cName = insn.getMethodInfo().getClassInfo().getName();
-			if (cName.equals(srcMap.get(insn.getFileLocation()))) {
-				targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
-				break;
-			} 
-			//else if (insn instanceof JVMInvokeInstruction) {
-			else if(checkJVMInvok) {
-				//String mName = ((JVMInvokeInstruction) insn).getInvokedMethodName().replaceAll("\\(.*$", "");
-
-				if (((JVMInvokeInstruction) insn).getInvokedMethodClassName().equals(clsName)
-						&& methodName.equals(mName)) {
-					targetSet.add(new Pair<Integer, Integer>(tl.getGroupNum(), tl.getLineNum()));
-					srcMap.put(insn.getFileLocation(), insn.getMethodInfo().getClassName());
-					break;
-				}
-			}
-		}*/
 	private void processTextLineForClassMethod(TextLine tl, Map<String, String> srcMap,
 			Set<Pair<Integer, Integer>> targetSet, String clsName, String methodName) {
 		for (int si = tl.getStartStep(); si <= tl.getEndStep(); si++) {

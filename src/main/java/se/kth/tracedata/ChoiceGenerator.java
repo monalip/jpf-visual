@@ -1,6 +1,6 @@
 package se.kth.tracedata;
 
-import se.kth.tracedata.jpf.ThreadInfo;
+import se.kth.tracedata.ThreadInfo;
 
 public interface ChoiceGenerator<T> {
 	String getId();

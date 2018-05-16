@@ -1,6 +1,5 @@
 package se.kth.tracedata.jpf;
 
-//import gov.nasa.jpf.vm.Instruction;
 import se.kth.tracedata.jpf.Instruction;
 
 
@@ -21,7 +20,7 @@ public class Step implements se.kth.tracedata.Step{
 		return jpfStep.getLocationString();
 	}
 	@Override
-	public Instruction getInstruction() {
+	public se.kth.tracedata.Instruction getInstruction() {
 		return new Instruction(jpfStep.getInstruction());
 		///return jpfStep.getInstruction();
 	}

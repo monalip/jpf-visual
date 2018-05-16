@@ -1,9 +1,7 @@
 package se.kth.jpf_visual.gui;
 
-import java.awt.CardLayout;
+
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,10 +9,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,14 +37,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import se.kth.jpf_visual.ClassFieldExplorer;
 import se.kth.jpf_visual.ClassMethodExplorer;
 import se.kth.jpf_visual.ErrorTableAndMapPane;
-import se.kth.jpf_visual.ErrorTracePrinter;
 import se.kth.jpf_visual.FieldNode;
 import se.kth.jpf_visual.MethodNode;
 import se.kth.jpf_visual.PaneConstants;
 import se.kth.jpf_visual.TraceData;
-//import gov.nasa.jpf.util.Pair;
 import se.kth.tracedata.Pair;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
 
 /**
@@ -178,7 +171,7 @@ public class ErrorTracePanel{
 			statusLabel.setForeground(Color.BLACK);
 		}
 	}
-	public void drowErrTrace(se.kth.tracedata.jpf.Path path, boolean found)
+	public void drowErrTrace(Path path, boolean found)
 	{
 		if (found && path != null) 
 		{

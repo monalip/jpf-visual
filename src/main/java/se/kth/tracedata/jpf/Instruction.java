@@ -2,7 +2,7 @@ package se.kth.tracedata.jpf;
 
 
 
-public class Instruction implements se.kth.tracedata.Instruction {
+public class Instruction extends se.kth.tracedata.Instruction {
 	 gov.nasa.jpf.vm.Instruction jpfInstruction;
 	
 	public Instruction(gov.nasa.jpf.vm.Instruction jpfInstruction)
@@ -90,4 +90,9 @@ public class Instruction implements se.kth.tracedata.Instruction {
 		
 		
 	}
+	@Override
+	public String getVariableId() {
+		return ((gov.nasa.jpf.vm.bytecode.FieldInstruction)jpfInstruction).getVariableId();
+	}
+	
 }

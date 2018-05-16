@@ -5,23 +5,12 @@ import java.io.PrintWriter;
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.report.Publisher;
 
-//import gov.nasa.jpf.report.Publisher;
-
-//import gov.nasa.jpf.Config;
-
-//import se.kth.tracedata.Reporter;
-//import se.kth.tracedata.Reporter;
-//import se.kth.tracedata.jpf.Config;
-//import se.kth.tracedata.jpf.Publisher;
-
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
-//import se.kth.tracedata.jpf.Path;
 import gov.nasa.jpf.report.Reporter;
 
 public class ErrorTracePrinter extends Publisher {
 
-	se.kth.tracedata.jpf.Path path;
+	Path path;
 
 	public ErrorTracePrinter(Config conf, Reporter reporter) {
 		super(conf, reporter);
@@ -57,7 +46,7 @@ public class ErrorTracePrinter extends Publisher {
 		path = new se.kth.tracedata.jpf.Path(reporter.getPath());
 	}
 
-	public se.kth.tracedata.jpf.Path getPath() {
+	public Path getPath() {
 		path = new se.kth.tracedata.jpf.Path(reporter.getPath());
 		if (path != null) {
 			return path;

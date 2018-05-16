@@ -29,11 +29,10 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-//import gov.nasa.jpf.util.Pair;
+
 import se.kth.tracedata.Pair;
-//import gov.nasa.jpf.vm.Path;
 import se.kth.tracedata.Path;
-//import se.kth.tracedata.jpf.Path;
+
 
 public class ErrorTableAndMapPane extends JPanel implements ComponentListener {
 	private static final long serialVersionUID = 1L;

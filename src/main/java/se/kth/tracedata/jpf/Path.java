@@ -6,8 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 
-//import gov.nasa.jpf.vm.Transition;
-import se.kth.tracedata.jpf.Transition;
+import se.kth.tracedata.Transition;
 
 
 public class Path implements se.kth.tracedata.Path,Iterable<Transition> {
@@ -114,7 +113,7 @@ public class Path implements se.kth.tracedata.Path,Iterable<Transition> {
 
 	@Override
 	public Transition get(int pos) {
-		return new Transition(jpfpath.get(pos));
+		return new se.kth.tracedata.jpf.Transition(jpfpath.get(pos));
 	}
 
 	
