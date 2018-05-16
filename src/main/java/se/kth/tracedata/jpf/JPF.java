@@ -1,6 +1,5 @@
 package se.kth.tracedata.jpf;
 
-import se.kth.tracedata.jpf.Reporter;
 
 public class JPF {
 	gov.nasa.jpf.JPF jpf ;
@@ -8,8 +7,6 @@ public class JPF {
 	  	
 	    this.jpf = jpf; 
 	  }
-	 public Reporter getReporter () {
-		    return new Reporter(jpf.getReporter());
-		  }
+	
 
 }

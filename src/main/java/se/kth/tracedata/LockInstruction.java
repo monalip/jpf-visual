@@ -1,7 +1,5 @@
 package se.kth.tracedata;
 
-//import gov.nasa.jpf.vm.Instruction;
-
 public abstract class LockInstruction extends Instruction
 {
 	/**
