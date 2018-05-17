@@ -11,7 +11,7 @@ report.errorTracePrinter.class= se.kth.jpf_visual.ErrorTracePrinter
 report.errorTracePrinter.property_violation=trace
 shell=.shell.basicshell.BasicShell
 shell.panels+= ,errorTrace
-shell.panels.errorTrace= se.kth.tracedata.jpf.ErrorTracePanel
+shell.panels.errorTrace= se.kth.jpf_visual.jpf.ErrorTracePanel
 #suppress console output
 #report.console.finished=
 #report.console.start=
