@@ -17,7 +17,7 @@ import se.kth.tracedata.Path;
 import se.kth.tracedata.Step;
 import se.kth.tracedata.ThreadInfo;
 import se.kth.tracedata.Transition;
-import se.kth.tracedata.jpf.ElementInfo;
+
 
 //methods of ThreadChoiceFromSet is created inside the ChoiceGenerator along with condition checking method for cg instance of ThreadChoiceFromSet
 
