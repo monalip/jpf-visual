@@ -47,14 +47,15 @@ public class TraceData {
 
 	public TraceData(Path path) {
 		this.path = path;
-		if (path.size() == 0) {
-			return; // nothing to publish
-		}
-
 		// group the transition range
 		group = new ArrayList<>();
 		threadNames = new ArrayList<>();
 		numOfThreads = -1;
+		if (path.size() == 0) {
+			return; // nothing to publish
+		}
+
+		
 		// group actions by thread
 		firstPass();
 
@@ -580,7 +581,14 @@ public class TraceData {
 	}
 
 	public List<String> getThreadNames() {
-		return new ArrayList<>(this.threadNames);
+		List<String> a = this.threadNames;
+		a = this.threadNames;
+		if(this.threadNames != null)
+		{
+			return new ArrayList<>(this.threadNames);
+		}
+		return null;
+		
 	}
 
 	public int getRows() {

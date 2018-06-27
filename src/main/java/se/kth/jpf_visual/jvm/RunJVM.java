@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import se.kth.tracedata.Path;
+
 public class RunJVM {
 
 	public static void main(String[] args) {
@@ -15,7 +17,11 @@ public class RunJVM {
 		 * generate the error trace and show the output there
 		 * 
 		 */
-		 ProcessBuilder pb = new ProcessBuilder("java", "-jar", "RunDiningPhil.jar");
+		se.kth.jpf_visual.ErrorTracePanel gui = new se.kth.jpf_visual.ErrorTracePanel();
+		Path pa= null;
+		gui.drowJVMErrTrace(pa,true);
+		 
+		 /*ProcessBuilder pb = new ProcessBuilder("java", "-jar", "RunDiningPhil.jar");
 	        pb.directory(new File("/Users/monali/eclipse-workspace/JPF_VISUAL/Trace_Jar"));
 	        try {
 	            Process p = pb.start();
@@ -24,7 +30,7 @@ public class RunJVM {
 	            thread.start();
 	        } catch (IOException e) {
 	            e.printStackTrace();
-	        }
+	        }*/
 	    }
 
 	}

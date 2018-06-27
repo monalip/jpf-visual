@@ -6,14 +6,9 @@ native_classpath+=./bin/
 #search.class=.search.heuristic.BFSHeuristic
 # register console trace printer as a publisher
 report.publisher+=, errorTracePrinter
-report.errorTracePrinter.class= se.kth.jpf_visual.ErrorTracePrinter
+report.errorTracePrinter.class= se.kth.jpf_visual.jpf.ErrorTracePrinter
 # print trace when property is violated
 report.errorTracePrinter.property_violation=trace
 shell=.shell.basicshell.BasicShell
-shell.panels+= ,errorTrace
+shell.panels+=, errorTrace
 shell.panels.errorTrace= se.kth.jpf_visual.jpf.ErrorTracePanel
-#suppress console output
-#report.console.finished=
-#report.console.start=
-#report.console.property_violation=error,trace
-

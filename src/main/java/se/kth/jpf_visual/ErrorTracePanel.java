@@ -181,6 +181,44 @@ public class ErrorTracePanel{
 			
 		}
 		
+		
+			
+	}
+	public void drowJVMErrTrace(Path path, boolean found)
+	{
+		if (found && path != null) 
+		{
+			// reset(path);
+			td = new TraceData(path);
+			errorTrace.draw(td);
+			userControlPanel.removeAll();
+			selectTable = new LinkedHashMap<>();
+			colors.clear();
+			colorID = 2;
+			
+			// install buttons, check boxes, dropdown list
+			
+			installFoldExpandButtons();
+			
+			errorTrace.setButton(foldAllButton, expandAllButton);
+			installCheckBoxes();
+			installDropDownList();
+			
+		}
+		if (found && path == null) {
+			JOptionPane.showMessageDialog( tablePanel, "No error trace is generated!", "No Error Found",
+					JOptionPane.NO_OPTION | JOptionPane.ERROR_MESSAGE);
+
+			
+		}else
+		{
+			JOptionPane.showMessageDialog(tablePanel, "ErrorTracePrinter is not set as a publisher!", "Error config .jpf",
+					JOptionPane.NO_OPTION | JOptionPane.ERROR_MESSAGE);
+
+		}
+
+		
+		
 			
 	}
 	

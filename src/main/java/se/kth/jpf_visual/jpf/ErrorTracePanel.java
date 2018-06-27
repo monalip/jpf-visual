@@ -133,6 +133,7 @@ public  class ErrorTracePanel extends ShellPanel implements VerifyCommandListene
 public void postCommand(VerifyCommand command) {
 		
 		
+		
 		//'Added displayErrMsg(boolean err) which If there is an error in program. 
 
 				gui.displayErrMsg(command.errorOccured());

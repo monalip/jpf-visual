@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class ErrorTableAndMapPane extends JPanel implements ComponentListener {
 
 	private Path path;
 	private List<Pair<Integer, Integer>> group;
-	private List<String> threadNames;
+	private List<String> threadNames=null;
 	private Map<Integer, TextLineList> lineTable;
 	private Map<Pair<Integer, Integer>, List<Pair<Integer, String>>> threadStateMap;
 	private List<Double> threadHeightList;
@@ -142,6 +143,7 @@ public class ErrorTableAndMapPane extends JPanel implements ComponentListener {
 		graphComponent.getGraphControl().addMouseListener(new FoldListener());
 
 		// set menu
+	
 		menu = new MenuPane(cellWidth, threadNames);
 		mxGraph menuGraph = menu.getGraph();
 		menuGraphComponent.setGraph(menuGraph);
