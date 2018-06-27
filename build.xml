@@ -253,7 +253,7 @@
 	<!-- ======================= Generating executable jar file ================================ -->
 	<target name="jar">
 	        <mkdir dir="build/jar"/>
-	        <jar destfile="build/jar/JPF_VISUAL.jar" basedir="build/main">
+	        <jar destfile="build/jar/jpf-visual.jar" basedir="build/main">
 	        	<manifest>
 	        	  	  	   <attribute name="Main-Class" value="se.kth.jpf_visual.jvm.RunJVM"/>
 	        	</manifest>
@@ -262,7 +262,7 @@
 	
 	<!-- ======================= run program using antscript ================================ -->
 	<target name="run">
-	        <java jar="build/jar/JPF_VISUAL.jar" fork="true"/>
+	        <java jar="build/jar/jpf-visual.jar" fork="true"/>
 	    </target>
 
 
