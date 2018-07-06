@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>se.kth</groupId>
-  <artifactId>JPF_VISUAL</artifactId>
+  <artifactId>jpf-visual</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>JPF_VISUAL</name>
+  <name>jpf-visual</name>
   <url>http://maven.apache.org</url>
 
  <properties>
@@ -26,22 +26,22 @@
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
-    <!--  Include external jar file -->
-	<dependency>
-	<groupId>jgraphx</groupId>
-	<artifactId>graphixfile</artifactId>
-	<version>1.0</version>
-	<scope>system</scope>
-	<systemPath>${basedir}/lib/jgraphx.jar</systemPath>
-</dependency>
+   
+					 <!--  Include external jar file -->
+						<dependency>
+								<groupId>jgraphx</groupId>
+								<artifactId>graphixfile</artifactId>
+								<version>1.0</version>
+								<scope>compile</scope>
+						</dependency>
+</dependencies>
 
-
-	</dependencies>
 	
   <build>
+  
   <plugins>
-     
       <plugin>
+				
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.3.2</version>
@@ -55,7 +55,9 @@
 				<configuration>
 					<mainClass>se.kth.jpf_visual.jvm.RunJVM</mainClass>
 				</configuration>
+				
 			</plugin>
+			
 
 			<!-- to ensure correct JDK is attached on your mvn (needs 1.8) if so, 
 				just ignore this plug-in -->
@@ -65,17 +67,24 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				 <version>3.7.0</version>	<!-- version number is also important, must be 3.7.0! (default - this plug-in 
 					can be deleted) -->
+					
 				<configuration>
 					<!-- considering the java version which is 1.8 for mvn -->
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<!-- considering jpf independent file for the compilation -->
 					<includes>
-                     <include>se/kth/jpf_visual/*.java</include>
-                     <include>se/kth/jpf_visual/jvm/*.java</include>
-                     <include>se/kth/tracedata/*.java</include>
-                     
-           			</includes>
-					
+					<include>se/kth/jpf_visual/</include>
+					<include>se/kth/jpf_visual/jvm/</include>
+					<include>se/kth/tracedata/</include>
+					<include>se/kth/tracedata/jvm/</include>
+					</includes>
+					<!-- excludes jpf dependent files from compilation -->
+					<excludes>
+					<exclude>se/kth/jpf_visual/jpf/</exclude>
+					<exclude>se/kth/tracedata/jpf/</exclude>
+					<exclude>se/kth/tracedata/shell/</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -110,6 +119,7 @@
       <artifactId>maven-jar-plugin</artifactId>
       <version>3.0.2</version>
       <configuration>
+      <verbose>true</verbose>
         <archive>
           <manifest>
             <addClasspath>true</addClasspath>
